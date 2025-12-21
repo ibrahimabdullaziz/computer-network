@@ -682,6 +682,37 @@ hr {
   margin: var(--space-2xl) 0;
 }
 
+/* Menu Toggle (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 44px;
+  height: 44px;
+  background: var(--color-accent-gradient);
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: white;
+  font-size: var(--text-lg);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 200;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+}
+
+.menu-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Sidebar overlay */
+.sidebar-overlay {
+  display: none;
+}
+
 /* ===================================
    RESPONSIVE
    =================================== */
@@ -697,6 +728,12 @@ hr {
 }
 
 @media (max-width: 768px) {
+  /* Show the menu toggle on mobile */
+  .menu-toggle {
+    display: flex;
+  }
+  
+  /* Sidebar slides in from right */
   .sidebar {
     position: fixed;
     right: -100%;
@@ -708,37 +745,42 @@ hr {
     right: 0;
   }
   
+  /* Show overlay when sidebar is open */
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    backdrop-filter: blur(4px);
+  }
+  
   .main {
     margin-right: 0;
     padding: var(--space-lg);
+    padding-top: calc(var(--space-lg) + 60px);
   }
   
-  .menu-toggle {
-    display: flex;
-    position: fixed;
+  /* Stack toggle buttons horizontally on mobile */
+  .dark-mode-toggle {
     top: var(--space-md);
-    right: var(--space-md);
+    left: var(--space-md);
     width: 44px;
     height: 44px;
-    background: var(--color-accent-gradient);
-    border: none;
-    border-radius: var(--border-radius-md);
-    color: white;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 101;
-    box-shadow: var(--shadow-lg);
+    font-size: var(--text-lg);
+  }
+  
+  .language-toggle {
+    top: var(--space-md);
+    left: calc(var(--space-md) + 52px);
+    width: 44px;
+    height: 44px;
+    font-size: var(--text-base);
   }
   
   .section-title {
     font-size: var(--text-2xl);
   }
-}
-
-/* Menu Toggle (hidden on desktop) */
-.menu-toggle {
-  display: none;
 }
 
 /* ===================================
