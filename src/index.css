@@ -845,7 +845,8 @@ hr {
 
   /* Mobile Header - visible on mobile */
   .mobile-header {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
     position: fixed;
     top: 0;
     left: 0;
@@ -856,8 +857,7 @@ hr {
     z-index: 150;
     padding: 0 var(--space-sm);
     align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
+    gap: var(--space-xs);
     box-shadow: var(--shadow-md);
   }
 
@@ -884,6 +884,7 @@ hr {
     transition: all var(--transition-normal);
     flex-shrink: 0;
     z-index: 151;
+    padding: 0;
   }
 
   .menu-toggle:hover,
@@ -892,21 +893,20 @@ hr {
     box-shadow: var(--shadow-lg);
   }
 
-  /* Header Toggles - flex based layout, no absolute positioning */
+  /* Header Toggles - properly positioned on the right */
   .header-toggles {
     display: flex;
     gap: var(--space-xs);
-    margin-left: auto;
     flex-shrink: 0;
+    justify-self: end;
   }
 
   /* Override fixed positioning for toggle buttons in mobile */
   .dark-mode-toggle {
     position: static;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     font-size: var(--text-base);
-    box-shadow: var(--shadow-sm);
     background: var(--color-accent-gradient);
     border: none;
     border-radius: 50%;
@@ -917,12 +917,20 @@ hr {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    padding: 0;
+    box-shadow: none;
+    transition: all var(--transition-normal);
+  }
+
+  .dark-mode-toggle:hover,
+  .dark-mode-toggle:active {
+    transform: scale(1.05);
   }
 
   .language-toggle {
     position: static;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     font-size: var(--text-sm);
     background: var(--color-bg-secondary);
     border: 2px solid var(--color-accent-primary);
@@ -936,6 +944,19 @@ hr {
     justify-content: center;
     font-family: var(--font-english);
     flex-shrink: 0;
+    padding: 0;
+    transition: all var(--transition-normal);
+  }
+
+  .language-toggle:hover,
+  .language-toggle:active {
+    transform: scale(1.05);
+    background: var(--color-accent-primary);
+    color: white;
+  }
+
+  :root.dark .language-toggle {
+    background: var(--color-bg-card);
   }
 
   /* Sidebar slides in from right */
