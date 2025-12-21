@@ -28,8 +28,8 @@ export function Section({ id, number, title, titleEn, children, onVisible }) {
         <span className="section-number">
           {language === 'ar' ? `القسم ${number}` : `Section ${number}`}
         </span>
-        <h1 className="section-title">{language === 'ar' ? title : titleEn}</h1>
-        {language === 'ar' && titleEn && <p className="section-title-en">{titleEn}</p>}
+        <h1 className="section-title">{titleEn || title}</h1>
+        {language === 'ar' && title && <p className="section-title-ar">{title}</p>}
       </div>
       {children}
     </section>

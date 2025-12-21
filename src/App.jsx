@@ -73,13 +73,34 @@ function AppContent() {
 
   return (
     <div className="app">
-      <button 
-        className="menu-toggle"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        aria-label="Toggle menu"
-      >
-        {sidebarOpen ? '✕' : '☰'}
-      </button>
+      {/* Mobile Header Bar */}
+      <header className="mobile-header">
+        <button 
+          className="menu-toggle"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label="Toggle menu"
+        >
+          {sidebarOpen ? '✕' : '☰'}
+        </button>
+
+        <div className="header-toggles">
+          <button 
+            className="dark-mode-toggle"
+            onClick={() => setDarkMode(!darkMode)}
+            aria-label="Toggle dark mode"
+          >
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+
+          <button 
+            className="language-toggle"
+            onClick={toggleLanguage}
+            aria-label="Toggle language"
+          >
+            {language === 'ar' ? 'EN' : 'ع'}
+          </button>
+        </div>
+      </header>
 
       <Sidebar
         sections={sections}
@@ -90,24 +111,6 @@ function AppContent() {
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
-
-      {/* Dark Mode Toggle */}
-      <button 
-        className="dark-mode-toggle"
-        onClick={() => setDarkMode(!darkMode)}
-        aria-label="Toggle dark mode"
-      >
-        {darkMode ? '☀️' : '🌙'}
-      </button>
-
-      {/* Language Toggle */}
-      <button 
-        className="language-toggle"
-        onClick={toggleLanguage}
-        aria-label="Toggle language"
-      >
-        {language === 'ar' ? 'EN' : 'ع'}
-      </button>
 
       <main className="main">
         <div className="content">

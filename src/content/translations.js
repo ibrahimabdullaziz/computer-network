@@ -9,8 +9,8 @@ export const translations = {
       en: 'The OSI Reference Model is a theoretical model designed to describe how network communication works and helps us understand and design Network Communications correctly.'
     },
     calloutImportant: {
-      ar: 'الموديل ده بيقسم شغل الشبكة كلها على 7 Layers، وكل Layer ليها وظيفة محددة جدًا. كل طبقة بتستخدم خدمات الطبقة اللي تحتها وبتقدم خدمات للطبقة اللي فوقها.',
-      en: 'This model divides all network operations into 7 Layers, and each Layer has a very specific function. Each layer uses the services of the layer below it and provides services to the layer above it.'
+      ar: 'الموديل ده بيقسم شغل الشبكة كلها على 7 Layers، وكل Layer ليها وظيفة محددة جدًا. كل طبقة بتستخدم خدمات الطبقة اللي تحتها وبتقدم خدمات للطبقة اللي فوقها، يعني مفيش Layer شغالة لوحدها.',
+      en: 'This model divides all network operations into 7 Layers, and each Layer has a very specific function. Each layer uses the services of the layer below it and provides services to the layer above it, meaning no layer works alone.'
     },
     layerDivision: { ar: 'تقسيم الطبقات', en: 'Layer Division' },
     lowerLayers: { ar: 'Lower Layers (الطبقات السفلى)', en: 'Lower Layers' },
@@ -396,8 +396,19 @@ export const translations = {
   // Section 11: Packet Structure
   packetStructure: {
     quote: {
-      ar: 'وحدة صغيرة من البيانات بتتبعت عبر الشبكة',
-      en: 'A small unit of data sent across the network'
+      ar: 'الداتا وهي ماشية في الشبكة بتتقسم لحتت صغيرة اسمها Packets.',
+      en: 'Data moving through the network is divided into small pieces called Packets.'
+    },
+    whyPackets: {
+      title: { ar: 'ليه الشبكات بتستخدم Packets؟', en: 'Why Do Networks Use Packets?' },
+      desc: {
+        ar: 'تخيل لو نبعت ملف كبير كقطعة واحدة وضاعت، هنضطر نعيد الملف كله. لكن لما نقسم، لو حتة ضاعت نعيد دي بس! وده بيخلي النقل أسرع وأذكى.',
+        en: 'Imagine sending a large file as one piece and it gets lost; we\'d have to resend everything. But when we divide, if a piece is lost, we only resend that part! This makes transmission faster and smarter.'
+      },
+      quote: {
+        ar: 'Packet-based communication = سرعة + كفاءة + موثوقية',
+        en: 'Packet-based communication = Speed + Efficiency + Reliability'
+      }
     },
     intro: {
       ar: 'بدل ما نبعت ملف كبير كقطعة واحدة، الشبكة بتقسّم الداتا لحتت صغيرة اسمها Packets.',
@@ -446,6 +457,13 @@ export const translations = {
             ['Source IP', 'Sender address'],
             ['Destination IP', 'Receiver address'],
           ]
+        },
+        deepDive: {
+          title: { ar: 'Deep Dive: التجزئة (Fragmentation)', en: 'Deep Dive: Fragmentation' },
+          desc: {
+            ar: 'لو Packet كبيرة، الشبكة بتجزأها. كل جزء بياخد نفس الـ Identification بس Fragment Offset مختلف علشان المستقبل يعرف يجمعهم صح.',
+            en: 'If a Packet is large, the network fragments it. Each fragment gets the same Identification but a different Fragment Offset so the receiver can reassemble them correctly.'
+          }
         }
       }
     },
@@ -494,6 +512,13 @@ export const translations = {
     mainFunctionList: {
       ar: ['يعرّف الجهاز داخل الشبكة', 'يسمح بالتواصل بين الأجهزة'],
       en: ['Identifies the device within the network', 'Allows communication between devices']
+    },
+    whereWorks: {
+      title: { ar: 'IP بيشتغل فين؟', en: 'Where Does IP Work?' },
+      list: {
+        ar: ['داخل الشبكات المحلية LAN', 'عبر الشبكات الواسعة WAN', 'كل جهاز (كمبيوتر، موبايل، راوتر) لازم يكون له IP'],
+        en: ['Inside Local Area Networks (LAN)', 'Across Wide Area Networks (WAN)', 'Every device (PC, mobile, router) must have an IP']
+      }
     },
     important: {
       ar: 'من غير IP مفيش Networking أساسًا!',

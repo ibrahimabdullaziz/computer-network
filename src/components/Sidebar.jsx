@@ -55,7 +55,7 @@ export function Sidebar({ sections, activeSection, completedSections, progress, 
                   <span className="nav-item-icon">
                     {isCompleted ? '✓' : index + 1}
                   </span>
-                  <span>{language === 'ar' ? section.title : section.titleEn}</span>
+                  <span>{section.title}</span>
                 </button>
               </div>
             );
