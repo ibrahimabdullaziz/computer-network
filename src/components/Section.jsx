@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useEffect, useRef } from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 export function Section({ id, number, title, titleEn, children, onVisible }) {
   const sectionRef = useRef(null);
@@ -12,7 +12,7 @@ export function Section({ id, number, title, titleEn, children, onVisible }) {
           onVisible?.(id);
         }
       },
-      { threshold: 0.3, rootMargin: '-100px 0px -50% 0px' }
+      { threshold: 0.3, rootMargin: "-100px 0px -50% 0px" }
     );
 
     if (sectionRef.current) {
@@ -25,14 +25,10 @@ export function Section({ id, number, title, titleEn, children, onVisible }) {
   return (
     <section id={id} ref={sectionRef} className="section">
       <div className="section-header">
-        <span className="section-number">
-          {language === 'ar' ? `القسم ${number}` : `Section ${number}`}
-        </span>
+        <span className="section-number">Section {number}</span>
         <h1 className="section-title">{titleEn || title}</h1>
-        {language === 'ar' && title && <p className="section-title-ar">{title}</p>}
       </div>
       {children}
     </section>
   );
 }
-
