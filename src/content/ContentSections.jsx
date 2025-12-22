@@ -1663,474 +1663,1462 @@ To send a packet to 192.168.1.50:
   );
 }
 
-// Section 28: Routing Algorithms - Overview
-export function RoutingAlgorithmsSection({ onVisible }) {
+// Section 27: Routing Algorithms Overview
+export function RoutingAlgorithmsOverviewSection({ onVisible }) {
   const { language: lang } = useLanguage();
 
   return (
     <Section
-      id="routing-algorithms"
-      number="28"
-      title="خوارزميات التوجيه"
+      id="routing-algorithms-overview"
+      number="27"
+      title="Routing Algorithms – نفهم المشهد الأول"
       titleEn="Routing Algorithms Overview"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "الشبكة وكيفية عملها" : "How the Network Works"}</h2>
+      <p>
+        {lang === "ar"
+          ? "المحاضرة تعرض شبكة إنترنت من أربع بوابات مع تكرار في المسارات، تتكون من أربع موجهات (A, B, C, D) متصلة بثلاث شبكات مع خادم وجهاز مستخدم متصلين عبر Ethernet."
+          : "The lecture presents an internet network with four gateways with path redundancy, consisting of four routers (A, B, C, D) connected to three networks with a server and user device connected via Ethernet."}
+      </p>
+
+      <p>
+        {lang === "ar"
+          ? "قبل ما نقول Routing Algorithm لازم نفهم الشبكة عاملة إزاي."
+          : "Before discussing routing algorithms, we must understand how the network works."}
+      </p>
+
+      <h3>
+        {lang === "ar"
+          ? "المثال اللي عندك مش عشوائي:"
+          : "The Example is Not Random:"}
+      </h3>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "4 Routers: A – B – C – D"
+            : "4 Routers: A – B – C – D"}
+        </li>
+        <li>{lang === "ar" ? "أكتر من شبكة IP" : "Multiple IP networks"}</li>
+        <li>{lang === "ar" ? "Server في حتة" : "Server at one location"}</li>
+        <li>
+          {lang === "ar" ? "User في حتة تانية" : "User at another location"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "وفيه أكتر من طريق يوصل بينهم"
+            : "There are multiple paths connecting them"}
+        </li>
+      </ul>
+
+      <h3>{lang === "ar" ? "ليه عملوا كده؟" : "Why Design It This Way?"}</h3>
+      <p>
+        {lang === "ar"
+          ? "عشان الشبكة ما تبقاش طريق واحد. لو طريق وقع → الشبكة تقع. لكن مع التكرار (Redundancy) → الشبكة تعيش"
+          : "So the network is not a single path. If one path fails → the network fails. But with redundancy → the network survives"}
+      </p>
+
+      <h3>
+        {lang === "ar"
+          ? "ما هي Routing Algorithm؟"
+          : "What is a Routing Algorithm?"}
+      </h3>
+      <Callout type="important">
+        {lang === "ar"
+          ? "العقل اللي بيقرر: 'أنهي طريق أعدّي منه الباكت؟' مش بس يوصل… يوصل صح، وبأقل خسارة، وبأسرع وقت"
+          : "The logic that decides: 'Which path should the packet take?' Not just reaching the destination… reaching it correctly, with minimal loss, and at fastest speed"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 28: Pre-Convergence Routing Table
+export function PreConvergenceSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="pre-convergence"
+      number="28"
+      title="Pre-Convergence Routing Table – قبل ما تحصل المصيبة"
+      titleEn="Pre-Convergence Routing Table"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "الحالة المثالية" : "The Ideal State"}</h2>
+      <p>
+        {lang === "ar"
+          ? "دي الحالة المثالية. كل Router:"
+          : "This is the ideal state. Each router:"}
+      </p>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "شايف الشبكة من وجهة نظره"
+            : "Sees the network from its perspective"}
+        </li>
+        <li>{lang === "ar" ? "عنده Routing Table" : "Has a Routing Table"}</li>
+        <li>
+          {lang === "ar"
+            ? "الجدول بيقول: عايز شبكة X؟ روح للـ Next Hop Y | عدد الـ hops قد إيه؟"
+            : "The table says: Want network X? Go to next hop Y | How many hops?"}
+        </li>
+      </ul>
+
+      <Callout type="note">
+        {lang === "ar"
+          ? "Routing Table مش بالضرورة يكون نسخة من جدول Router تاني. بس كلهم متفقين على الواقع"
+          : "Routing table doesn't have to be a copy of another router's table. But all agree on reality"}
+      </Callout>
+
+      <h3>{lang === "ar" ? "الحالة الطبيعية:" : "Normal State:"}</h3>
+      <ul>
+        <li>
+          {lang === "ar" ? "الوصلة C ↔ D شغالة" : "Link C ↔ D is working"}
+        </li>
+        <li>{lang === "ar" ? "الطريق معروف" : "The path is known"}</li>
+        <li>
+          {lang === "ar"
+            ? "الباكت بتمشي من غير تفكير زيادة"
+            : "Packets move without extra thought"}
+        </li>
+      </ul>
+    </Section>
+  );
+}
+
+// Section 29: Network Failure Scenarios
+export function NetworkFailureScenariosSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="network-failure-scenarios"
+      number="29"
+      title="Network Failure Scenarios – الشبكة مش بتفترض سبب واحد"
+      titleEn="Network Failure Scenarios"
       onVisible={onVisible}
     >
       <h2>
         {lang === "ar"
-          ? "ما هي خوارزمية التوجيه؟"
-          : "What is a Routing Algorithm?"}
+          ? "لماذا من الصعب تحديد المشكلة؟"
+          : "Why is It Hard to Identify the Problem?"}
       </h2>
       <p>
         {lang === "ar"
-          ? "خوارزمية التوجيه هي العقل الذي يقرر أي طريق يجب أن تأخذها الحزمة للوصول إلى وجهتها"
-          : "A routing algorithm is the logic that determines which path a packet should take to reach its destination"}
+          ? "لما Router C يبعت باكت للسيرفر ومتوصلش، الشبكة ما تقولش فورًا: اللينك وقع. ليه؟ عشان الشبكة بتفكر بعقل مهندس مش متسرع"
+          : "When router C sends a packet to the server and it doesn't arrive, the network doesn't immediately say: the link is down. Why? Because the network thinks like a careful engineer, not rushing to conclusions"}
       </p>
 
-      <h3>{lang === "ar" ? "المتطلبات الأساسية" : "Basic Requirements"}</h3>
+      <h3>{lang === "ar" ? "الاحتمالات المحتملة:" : "Possible Scenarios:"}</h3>
       <ul>
         <li>
           {lang === "ar"
-            ? "الوصول الصحيح (Correctness)"
-            : "Reach destination correctly"}
+            ? "السيرفر نفسه نايم"
+            : "The server itself is sleeping"}
+        </li>
+        <li>
+          {lang === "ar" ? "كارت الشبكة بتاعه مات" : "Its network card died"}
         </li>
         <li>
           {lang === "ar"
-            ? "تقليل الخسارة (Minimize Loss)"
-            : "Minimize packet loss"}
+            ? "Router D كله فصل"
+            : "Router D is completely disconnected"}
         </li>
-        <li>{lang === "ar" ? "السرعة (Speed)" : "Achieve fast delivery"}</li>
+        <li>{lang === "ar" ? "Interface اتحرق" : "An interface burned out"}</li>
+        <li>{lang === "ar" ? "كابل اتقطع" : "Cable is cut"}</li>
         <li>
-          {lang === "ar" ? "الموثوقية (Reliability)" : "Provide reliability"}
+          {lang === "ar" ? "C نفسه عنده مشكلة" : "C itself has a problem"}
+        </li>
+      </ul>
+
+      <Callout type="warning">
+        {lang === "ar"
+          ? "عدم وصول الباكت ≠ تعرف السبب مباشرة. وده مهم جدًا في فهم convergence"
+          : "Packet not arriving ≠ knowing the cause immediately. This is very important in understanding convergence"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 30: Link Failure Impact
+export function LinkFailureImpactSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="link-failure-impact"
+      number="30"
+      title="Link Failure Impact – أول ناس يحسوا مين؟"
+      titleEn="Link Failure Impact - Who Detects First?"
+      onVisible={onVisible}
+    >
+      <h2>
+        {lang === "ar" ? "من يشعر بفشل الوصلة؟" : "Who Detects Link Failure?"}
+      </h2>
+      <p>
+        {lang === "ar"
+          ? "لما Interface بين C و D يفشل:"
+          : "When the interface between C and D fails:"}
+      </p>
+
+      <h3>{lang === "ar" ? "من يعلم فوراً:" : "Who Knows Immediately:"}</h3>
+      <ul>
+        <li>{lang === "ar" ? "C يحس" : "C detects it"}</li>
+        <li>{lang === "ar" ? "D يحس" : "D detects it"}</li>
+      </ul>
+
+      <h3>{lang === "ar" ? "من لا يعلم:" : "Who Doesn't Know:"}</h3>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "A و B؟ ولا كأن في حاجة حصلت"
+            : "A and B? As if nothing happened"}
+        </li>
+      </ul>
+
+      <Callout type="important">
+        {lang === "ar"
+          ? "Routing protocols = رسائل مش سحر. فاللينك يتشال عند C و D لكن باقي الشبكة لسه في الوهم"
+          : "Routing protocols = messages, not magic. The link is removed at C and D but the rest of the network is still in the old state"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 31: Mid-Convergence
+export function MidConvergenceSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="mid-convergence"
+      number="31"
+      title="Mid-Convergence – أخطر مرحلة في الشبكة"
+      titleEn="Mid-Convergence - Most Dangerous Phase"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "أخطر مرحلة" : "The Dangerous Phase"}</h2>
+      <p>
+        {lang === "ar"
+          ? "دي بقى المرحلة اللي المهندسين بيكرهوها 😅"
+          : "This is the phase that engineers hate 😅"}
+      </p>
+
+      <h3>{lang === "ar" ? "الوضع:" : "The Situation:"}</h3>
+      <ul>
+        <li>
+          {lang === "ar" ? "C و D عارفين الحقيقة" : "C and D know the truth"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "A و B عايشين في الماضي"
+            : "A and B living in the past"}
+        </li>
+      </ul>
+
+      <h3>{lang === "ar" ? "النتيجة:" : "The Result:"}</h3>
+      <ul>
+        <li>
+          {lang === "ar" ? "Routing Tables مختلفة" : "Different routing tables"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "كل Router شايف شبكة غير التاني"
+            : "Each router sees a different network"}
+        </li>
+      </ul>
+
+      <h3>{lang === "ar" ? "المشاكل المحتملة:" : "Potential Problems:"}</h3>
+      <ul>
+        <li>{lang === "ar" ? "Routing Loop" : "Routing Loop"}</li>
+        <li>{lang === "ar" ? "Packet loss" : "Packet loss"}</li>
+        <li>{lang === "ar" ? "Black hole" : "Black hole"}</li>
+      </ul>
+
+      <Callout type="warning">
+        {lang === "ar"
+          ? "الشبكة بتشتغل نص شغلانة. ودي لحظة عدم استقرار"
+          : "The network is only half working. This is a moment of instability"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 32: Post-Convergence
+export function PostConvergenceSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="post-convergence"
+      number="32"
+      title="Post-Convergence – لما الكل يفوق"
+      titleEn="Post-Convergence - Stable State"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "الحالة المثالية الجديدة" : "New Ideal State"}</h2>
+      <p>
+        {lang === "ar"
+          ? "بعد ما Routing updates تلف الشبكة كلها:"
+          : "After routing updates spread throughout the network:"}
+      </p>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "كل Router قبل Updates"
+            : "Each router receives updates"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "كل جهاز عرف الحقيقة"
+            : "Every device understands the new state"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "Routing Tables متطابقة"
+            : "Routing Tables are identical"}
+        </li>
+      </ul>
+
+      <h3>{lang === "ar" ? "الخطوات اللي حصلت" : "Steps That Occurred"}</h3>
+
+      <h4>{lang === "ar" ? "1. التحديث الأول" : "1. First Update"}</h4>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "A و B يستقبلوا رسايل من C و D"
+            : "A and B receive messages from C and D"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "يفهموا إن اللينك C ↔ D انقطع"
+            : "They understand that link C ↔ D is broken"}
+        </li>
+      </ul>
+
+      <h4>{lang === "ar" ? "2. Update التوجيه" : "2. Routing Update"}</h4>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "كل Router يحدّث جدول التوجيه بتاعه"
+            : "Each router updates its routing table"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "يرسل Updates جديدة لجيرانه"
+            : "Sends new updates to neighbors"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "يروح الطريق القديم (C ↔ D)"
+            : "The old path (C ↔ D) is removed"}
+        </li>
+      </ul>
+
+      <h4>
+        {lang === "ar"
+          ? "3. الطريق البديل يتفعل"
+          : "3. Alternate Path Activation"}
+      </h4>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "السيرفر اللي كان توصل ليه عن طريق C ↔ D"
+            : "The server that was reachable via C ↔ D"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "بقى التوصل ليه عن طريق بديل"
+            : "Is now reachable via alternate route"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "مثلاً: A → C → Server (مسار جديد)"
+            : "Example: A → C → Server (new path)"}
+        </li>
+      </ul>
+
+      <h3>{lang === "ar" ? "النتيجة النهائية" : "Final Outcome"}</h3>
+      <ul>
+        <li>
+          <strong>{lang === "ar" ? "الاستقرار" : "Stability"}</strong>:{" "}
+          {lang === "ar"
+            ? "جميع Routers متفقة"
+            : "All routers are in agreement"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "الاستمرارية" : "Continuity"}</strong>:{" "}
+          {lang === "ar" ? "الخدمات بتمشي عادي" : "Services continue normally"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "الأمان" : "Safety"}</strong>:{" "}
+          {lang === "ar" ? "مفيش Routing Loops" : "No routing loops"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "الموثوقية" : "Reliability"}</strong>:{" "}
+          {lang === "ar" ? "الشبكة اكتسبت مناعة" : "Network gained resilience"}
         </li>
       </ul>
 
       <h3>
         {lang === "ar"
-          ? "مثال عملي - الشبكة مع التكرار"
-          : "Practical Example - Redundant Network"}
+          ? "هدف أي Routing Protocol محترم"
+          : "Goal of Any Proper Routing Protocol"}
       </h3>
+      <Callout type="important">
+        {lang === "ar"
+          ? "الشبكة تقع؟ لا | الشبكة تلتف حول المشكلة وتكمل شغلها"
+          : "Network fails? No | Network adapts around the problem and continues working"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 33: Convergence Time
+export function ConvergenceTimeSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="convergence-time"
+      number="33"
+      title="Convergence Time – الزمن اللي الشبكة فيه غير مستقرة"
+      titleEn="Convergence Time - Network Instability Duration"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "التعريف الدقيق" : "Precise Definition"}</h2>
+      <p>{lang === "ar" ? "Convergence Time هو:" : "Convergence Time is:"}</p>
+      <Callout type="note">
+        {lang === "ar"
+          ? "الفترة الزمنية من حدوث العطل لحتى آخر Router يفهم ويحدّث جدول التوجيه"
+          : "The time period from when a failure occurs until the last router understands and updates its routing table"}
+      </Callout>
+
+      <h2>
+        {lang === "ar"
+          ? "ليه Convergence Time مهم جداً؟"
+          : "Why is Convergence Time So Important?"}
+      </h2>
+      <p>{lang === "ar" ? "كل ما الوقت ده:" : "The impact of this time:"}</p>
+      <ul>
+        <li>
+          <strong>{lang === "ar" ? "طويل" : "Long"}</strong> →{" "}
+          {lang === "ar"
+            ? "الشبكة بتعاني من عدم استقرار طويل"
+            : "Network suffers prolonged instability"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "قصير" : "Short"}</strong> →{" "}
+          {lang === "ar"
+            ? "الشبكة قوية وتتعافى بسرعة"
+            : "Network is robust and recovers quickly"}
+        </li>
+      </ul>
+
+      <h3>
+        {lang === "ar"
+          ? "المخاطر خلال فترة Convergence:"
+          : "Risks During Convergence Period:"}
+      </h3>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "ممكن تحصل Routing Loops 🔄"
+            : "Routing loops may occur 🔄"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "ممكن تحصل Packet Loss 📉"
+            : "Packet loss may occur 📉"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "ممكن تحصل Black Holes ⚫"
+            : "Black holes may occur ⚫"}
+        </li>
+      </ul>
+
+      <h2>
+        {lang === "ar"
+          ? "العوامل اللي بتأثر على Convergence Time"
+          : "Factors Affecting Convergence Time"}
+      </h2>
+      <Table
+        headers={lang === "ar" ? ["العامل", "التأثير"] : ["Factor", "Impact"]}
+        rows={[
+          [
+            lang === "ar" ? "عدد Routers" : "Number of Routers",
+            lang === "ar"
+              ? "كل ما يزيد، الوقت يزيد"
+              : "Increases with more routers",
+          ],
+          [
+            lang === "ar" ? "بعد مكان العطل" : "Distance to Failure",
+            lang === "ar"
+              ? "كل ما يبعد، الخبر يأخذ وقت أكتر"
+              : "Further away = longer propagation time",
+          ],
+          [
+            lang === "ar" ? "ضغط الترافيك" : "Traffic Load",
+            lang === "ar"
+              ? "الترافيك الكتير بتأخر الرسايل"
+              : "Heavy traffic delays messages",
+          ],
+          [
+            lang === "ar" ? "قوة الأجهزة" : "Device Power",
+            lang === "ar"
+              ? "جهاز ضعيف = حساب أبطأ"
+              : "Weak device = slower computation",
+          ],
+          [
+            lang === "ar" ? "نوع البروتوكول" : "Protocol Type",
+            lang === "ar"
+              ? "كل بروتوكول في سرعة مختلفة"
+              : "Different protocols have different speeds",
+          ],
+          [
+            lang === "ar" ? "حجم LSDB" : "LSDB Size",
+            lang === "ar"
+              ? "Base Data بتاع Link-State أكبر"
+              : "Link-State databases are larger",
+          ],
+        ]}
+      />
+
+      <h2>
+        {lang === "ar"
+          ? "مقارنة سرعة البروتوكولات"
+          : "Protocol Speed Comparison"}
+      </h2>
+      <Table
+        headers={
+          lang === "ar"
+            ? ["البروتوكول", "Convergence Time", "الملاحظة"]
+            : ["Protocol", "Convergence Time", "Note"]
+        }
+        rows={[
+          [
+            "RIP",
+            lang === "ar" ? "بطيء جداً" : "Very Slow",
+            lang === "ar"
+              ? "من 30 إلى عدة دقائق"
+              : "30 seconds to several minutes",
+          ],
+          [
+            "IGRP",
+            lang === "ar" ? "متوسط" : "Moderate",
+            lang === "ar" ? "أسرع من RIP" : "Faster than RIP",
+          ],
+          [
+            "EIGRP",
+            lang === "ar" ? "سريع" : "Fast",
+            lang === "ar" ? "يبعت تحديثات فورية" : "Sends instant updates",
+          ],
+          [
+            "OSPF",
+            lang === "ar" ? "أسرع" : "Very Fast",
+            lang === "ar" ? "يحسب المسارات بسرعة" : "Calculates paths quickly",
+          ],
+          [
+            "BGP",
+            lang === "ar" ? "متوسط" : "Moderate",
+            lang === "ar" ? "بس أكتر موثوقية" : "But more reliable",
+          ],
+        ]}
+      />
+
+      <h2>{lang === "ar" ? "مثال عملي" : "Practical Example"}</h2>
+      <p>
+        {lang === "ar" ? "شبكة فيها 5 Routers:" : "Network with 5 Routers:"}
+      </p>
+      <ol>
+        <li>
+          <strong>{lang === "ar" ? "اللحظة 0" : "Time 0"}</strong>:{" "}
+          {lang === "ar" ? "اللينك انقطع" : "Link failure occurs"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "اللحظة 1-2 ثانية" : "Time 1-2 sec"}</strong>
+          :{" "}
+          {lang === "ar"
+            ? "Router A و B يحسّوا بالمشكلة"
+            : "Routers A and B detect the problem"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "اللحظة 2-4 ثانية" : "Time 2-4 sec"}</strong>
+          : {lang === "ar" ? "A و B يرسلوا Updates" : "A and B send updates"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "اللحظة 4-6 ثانية" : "Time 4-6 sec"}</strong>
+          :{" "}
+          {lang === "ar"
+            ? "C و D يستقبلوا ويفهموا"
+            : "C and D receive and understand"}
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "اللحظة 6-8 ثانية" : "Time 6-8 sec"}</strong>
+          :{" "}
+          {lang === "ar" ? "كل الشبكة متفقة ✅" : "Entire network converged ✅"}
+        </li>
+      </ol>
+
+      <Callout type="important">
+        <strong>
+          {lang === "ar"
+            ? "Convergence Time = 8 ثواني"
+            : "Convergence Time = 8 seconds"}
+        </strong>
+      </Callout>
+
+      <h2>{lang === "ar" ? "الخلاصة" : "Summary"}</h2>
       <p>
         {lang === "ar"
-          ? "الشبكة تحتوي على 4 موجهات (A, B, C, D) متصلة بثلاث شبكات مع خادم وجهاز مستخدم"
-          : "Network contains 4 routers (A, B, C, D) connected to 3 networks with a server and client devices"}
+          ? "Convergence Time ده يعكس:"
+          : "Convergence Time reflects:"}
+      </p>
+      <ul>
+        <li>
+          <strong>
+            {lang === "ar" ? "كفاءة البروتوكول" : "Protocol Efficiency"}
+          </strong>{" "}
+          🏆
+        </li>
+        <li>
+          <strong>
+            {lang === "ar" ? "موثوقية الشبكة" : "Network Reliability"}
+          </strong>{" "}
+          🛡️
+        </li>
+        <li>
+          <strong>{lang === "ar" ? "جودة التصميم" : "Design Quality"}</strong>{" "}
+          🏗️
+        </li>
+      </ul>
+
+      <Callout type="note">
+        {lang === "ar"
+          ? "عشان كده الـ Network Engineer لازم يعرف يختار البروتوكول اللي يناسب احتياجاته"
+          : "This is why network engineers must know how to choose the protocol that suits their needs"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 34: Routing Metrics
+export function RoutingMetricsSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="routing-metrics"
+      number="34"
+      title="Routing Metrics – الـ Router بيختار على أساس إيه؟"
+      titleEn="Routing Metrics - Selection Criteria"
+      onVisible={onVisible}
+    >
+      <h2>
+        {lang === "ar"
+          ? "ما هي معايير الاختيار؟"
+          : "What Are Selection Criteria?"}
+      </h2>
+      <p>
+        {lang === "ar"
+          ? "لما قدام Router أكتر من طريق لازم مقياس."
+          : "When a router has multiple paths available, it needs a metric."}
+      </p>
+
+      <h3>
+        {lang === "ar"
+          ? "Distance Vector (مثل RIP):"
+          : "Distance Vector (like RIP):"}
+      </h3>
+      <ul>
+        <li>{lang === "ar" ? "يحسب hops" : "Counts hops"}</li>
+        <li>{lang === "ar" ? "أقل عدد = أحسن" : "Fewer hops = better"}</li>
+      </ul>
+
+      <Callout type="note">
+        {lang === "ar"
+          ? "أنا مش فارق معايا السرعة… المهم أقصر"
+          : "I don't care about speed... the shortest path matters most"}
+      </Callout>
+
+      <h3>{lang === "ar" ? "المشكلة:" : "The Problem:"}</h3>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "طريق بطيء 1 hop أحسن عند RIP من طريق سريع 3 hops"
+            : "A slow path with 1 hop is better than a fast path with 3 hops"}
+        </li>
+      </ul>
+
+      <Callout type="warning">
+        {lang === "ar"
+          ? "وده سبب إننا بنقول: RIP تعبان في الشبكات الكبيرة"
+          : "This is why we say: RIP struggles in large networks"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 35: Distance-Vector Routing
+export function DistanceVectorRoutingSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="distance-vector-routing"
+      number="35"
+      title="Distance-Vector Routing (نفكر زي Router بدائي)"
+      titleEn="Distance-Vector Routing"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "الفكرة من الآخر" : "The Core Idea"}</h2>
+      <Callout type="note">
+        {lang === "ar"
+          ? "أنا Router، معرفش غير جيراني وبعرف أوصل لإيه وعدد القفزات قد إيه"
+          : "I am a router, I only know my neighbors and how many hops to each destination"}
+      </Callout>
+
+      <p>
+        {lang === "ar"
+          ? "يعني Router مش شايف الشبكة كلها. شايف: أنا | اللي جنبي | واللي جنبي قالّي عليه"
+          : "Router doesn't see the entire network. It sees: me | my neighbors | what neighbors told me"}
+      </p>
+
+      <h3>{lang === "ar" ? "تشبيه:" : "Analogy:"}</h3>
+      <Callout type="important">
+        {lang === "ar"
+          ? "أنا أعرف أوصل القاهرة في ساعتين وصاحبي قالي الإسكندرية 3 ساعات من عنده خلاص أبقى أنا أوصلها في 5"
+          : "I know how to reach Cairo in 2 hours, my friend says Alexandria is 3 hours from him, so I can reach it in 5 hours"}
+      </Callout>
+
+      <h3>
+        {lang === "ar"
+          ? "ليه اتعمل كده أصلاً؟"
+          : "Why Was It Designed This Way?"}
+      </h3>
+      <p>{lang === "ar" ? "أول شبكات كانت:" : "Early networks were:"}</p>
+      <ul>
+        <li>{lang === "ar" ? "صغيرة" : "Small"}</li>
+        <li>{lang === "ar" ? "أجهزة ضعيفة" : "Weak devices"}</li>
+        <li>
+          {lang === "ar" ? "مفيش CPU ولا RAM محترمة" : "Limited CPU and RAM"}
+        </li>
+      </ul>
+
+      <p>
+        {lang === "ar"
+          ? "فكان لازم: Algorithm بسيط | حساب سهل | ترافيك تحكم قليل"
+          : "So needed: Simple algorithm | Easy computation | Low overhead"}
+      </p>
+
+      <h3>
+        {lang === "ar" ? "إزاي بيشتغل فعليًا؟" : "How Does It Actually Work?"}
+      </h3>
+      <p>{lang === "ar" ? "كل Router:" : "Each router:"}</p>
+      <ul>
+        <li>{lang === "ar" ? "عنده Routing Table" : "Has a routing table"}</li>
+        <li>
+          {lang === "ar"
+            ? "الجدول فيه: Destination | Next hop | Hop count"
+            : "Contains: Destination | Next hop | Hop count"}
+        </li>
+      </ul>
+
+      <p>{lang === "ar" ? "كل فترة:" : "Periodically:"}</p>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "يبعت الجدول كله لجيرانه"
+            : "Sends entire table to neighbors"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "الجيران: يزوّدوا hop | يقارنوا | يختاروا الأقل"
+            : "Neighbors: increment hop | compare | choose best"}
+        </li>
+      </ul>
+
+      <Callout type="note">
+        {lang === "ar"
+          ? "أنا بتعلم من اللي جنبي مش من الشبكة كلها"
+          : "I learn from neighbors, not from the whole network"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 36: Link-State Routing
+export function LinkStateRoutingSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="link-state-routing"
+      number="36"
+      title="Link-State Routing (Router ذكي شوية)"
+      titleEn="Link-State Routing"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "التغيير الكبير" : "The Big Change"}</h2>
+      <Callout type="important">
+        {lang === "ar"
+          ? "لا استنى… أنا عايز أشوف الشبكة كلها بعيني"
+          : "Wait... I want to see the entire network with my own eyes"}
+      </Callout>
+
+      <h3>
+        {lang === "ar" ? "ليه ظهر Link-State؟" : "Why Did Link-State Appear?"}
+      </h3>
+      <ul>
+        <li>{lang === "ar" ? "الشبكات كبرت" : "Networks grew larger"}</li>
+        <li>
+          {lang === "ar"
+            ? "Distance-Vector بقى بطيء"
+            : "Distance-Vector became slow"}
+        </li>
+        <li>{lang === "ar" ? "Convergence وحش" : "Convergence was bad"}</li>
+        <li>{lang === "ar" ? "Loops كتير" : "Too many loops"}</li>
+      </ul>
+
+      <h3>{lang === "ar" ? "الحل:" : "The Solution:"}</h3>
+      <Callout type="note">
+        {lang === "ar"
+          ? "كل Router يبقى عنده خريطة كاملة"
+          : "Each router has a complete network map"}
+      </Callout>
+
+      <h3>{lang === "ar" ? "الفكرة الأساسية" : "Core Concept"}</h3>
+      <p>{lang === "ar" ? "Link-State Router:" : "Link-State router:"}</p>
+      <ul>
+        <li>{lang === "ar" ? "يعرف كل Routers" : "Knows all routers"}</li>
+        <li>{lang === "ar" ? "يعرف كل Links" : "Knows all links"}</li>
+        <li>
+          {lang === "ar" ? "يعرف Cost كل Link" : "Knows cost of each link"}
+        </li>
+      </ul>
+
+      <Callout type="important">
+        {lang === "ar"
+          ? "Router = Google Maps | مش حد بيسأل في الطريق"
+          : "Router = Google Maps | Not asking for directions"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 37: Link-State Routing Functions
+export function LinkStateRoutingFunctionsSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="link-state-routing-functions"
+      number="37"
+      title="Link-State Routing Functions (المطبخ من جوه)"
+      titleEn="Link-State Routing Functions"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "المكونات الأساسية" : "Core Components"}</h2>
+      <p>
+        {lang === "ar"
+          ? "خلّينا نمسكها واحدة واحدة، عشان دي قلب OSPF."
+          : "Let's examine each, as these form the heart of OSPF."}
+      </p>
+
+      <h3>🔹 LSA – Link State Advertisement</h3>
+      <p>
+        {lang === "ar"
+          ? "دي رسالة بيقول فيها Router: أنا موجود | عندي interfaces كذا | ومتصل بـ Routers كذا | والتكلفة كذا"
+          : "A message where a router announces: I exist | I have these interfaces | Connected to these routers | With these costs"}
+      </p>
+      <ul>
+        <li>{lang === "ar" ? "تعريف عن نفسه" : "Self identification"}</li>
+        <li>{lang === "ar" ? "حالته" : "Its state"}</li>
+        <li>{lang === "ar" ? "علاقاته" : "Its relationships"}</li>
+      </ul>
+
+      <h3>🔹 LSDB – Link State Database</h3>
+      <p>
+        {lang === "ar"
+          ? "بعد ما LSAs تنتشر: كل Router يبني Database | كلهم نسخة واحدة"
+          : "After LSAs spread: Each router builds a database | All have identical copies"}
+      </p>
+      <Callout type="important">
+        {lang === "ar"
+          ? "كل Routers شايفين نفس الشبكة"
+          : "All routers see the same network view"}
+      </Callout>
+
+      <h3>🔹 SPF – Shortest Path First</h3>
+      <p>
+        {lang === "ar"
+          ? "هنا بقى العقل يشتغل. Router: يشغل Dijkstra | يحسب أقصر مسار | يبني Routing Table"
+          : "Now the intelligence works. Router: runs Dijkstra | calculates shortest path | builds routing table"}
+      </p>
+      <Callout type="note">
+        {lang === "ar"
+          ? "Routing Table = نتيجة حساب مش كلام جيران"
+          : "Routing Table = Result of calculation, not neighbor gossip"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 38: LSA Packet
+export function LSAPacketSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="lsa-packet"
+      number="38"
+      title="LSA Packet (الرسالة اللي بتغيّر الشبكة)"
+      titleEn="LSA Packet - The Message That Changes Everything"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "أهمية LSA" : "Importance of LSA"}</h2>
+      <p>
+        {lang === "ar"
+          ? "LSA مش رسالة عادية. دي اللي: تحرّك الشبكة | تعمل convergence"
+          : "LSA is not an ordinary message. It: moves the network | triggers convergence"}
+      </p>
+
+      <h3>{lang === "ar" ? "ماذا تقول LSA؟" : "What Does LSA Say?"}</h3>
+      <ul>
+        <li>{lang === "ar" ? "اسم Router" : "Router name"}</li>
+        <li>
+          {lang === "ar" ? "Interface up ولا down" : "Interface up or down"}
+        </li>
+        <li>{lang === "ar" ? "Cost اتغير" : "Cost changed"}</li>
+        <li>{lang === "ar" ? "Link وقع" : "Link failed"}</li>
+        <li>{lang === "ar" ? "Neighbor جديد" : "New neighbor"}</li>
+      </ul>
+
+      <Callout type="important">
+        {lang === "ar"
+          ? "أول ما LSA تطلع: الشبكة كلها تبدأ تفكر"
+          : "As soon as LSA is sent: The entire network starts thinking"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 39: Routing Protocol Types
+export function RoutingProtocolTypesSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="routing-protocol-types"
+      number="39"
+      title="Routing Protocol Types (نرتب الدنيا)"
+      titleEn="Routing Protocol Types"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "النوعان الكبار" : "The Two Main Types"}</h2>
+
+      <h3>{lang === "ar" ? "Distance-Vector:" : "Distance-Vector:"}</h3>
+      <ul>
+        <li>RIP</li>
+        <li>IGRP</li>
+        <li>EIGRP (Hybrid بس أقرب هنا)</li>
+      </ul>
+
+      <h3>{lang === "ar" ? "Link-State:" : "Link-State:"}</h3>
+      <ul>
+        <li>OSPF</li>
+      </ul>
+
+      <Callout type="important">
+        {lang === "ar"
+          ? "الفرق مش أسماء. الفرق طريقة تفكير"
+          : "The difference is not names. The difference is in thinking approach"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 40: EIGRP & BGP
+export function EIGRPBGPSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="eigrp-bgp"
+      number="40"
+      title="EIGRP & BGP (شبكات العالم الحقيقي)"
+      titleEn="EIGRP & BGP - Real World Networks"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "خارج حدود الـ AS" : "Outside AS Boundaries"}</h2>
+      <p>
+        {lang === "ar"
+          ? "لما نطلع بره الـ AS: مفيش hop | مفيش cost | في سياسة"
+          : "When we go outside AS: No hop count | No simple cost | Policy matters"}
+      </p>
+
+      <h3>{lang === "ar" ? "BGP" : "BGP"}</h3>
+      <Callout type="important">
+        {lang === "ar"
+          ? "أنا همشي منين بناءً على سياسة مش أسرع طريق"
+          : "I choose the path based on policy, not the fastest route"}
+      </Callout>
+
+      <h3>{lang === "ar" ? "النتيجة:" : "The Result:"}</h3>
+      <ul>
+        <li>{lang === "ar" ? "الإنترنت شغال" : "The internet works"}</li>
+        <li>
+          {lang === "ar"
+            ? "بس مش بالضرورة أسرع طريق"
+            : "But not necessarily the fastest path"}
+        </li>
+      </ul>
+    </Section>
+  );
+}
+
+// Section 41: RIP Detailed
+export function RIPDetailedSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="rip-detailed"
+      number="41"
+      title="RIP – Basic Distance-Vector"
+      titleEn="RIP - The Simplest Protocol"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "الصورة البسيطة" : "The Simple Picture"}</h2>
+      <Callout type="note">
+        {lang === "ar"
+          ? "تخيل شبكة كلها طرق، وراوتر غلبان معندوش خريطة، كل اللي يعرفه: من هنا لحد هناك كام محطة؟ ده RIP بالظبط."
+          : "Imagine a network of roads, a helpless router with no map, all it knows: How many stops to get there? That's exactly RIP."}
+      </Callout>
+
+      <h3>{lang === "ar" ? "ليه ظهر RIP؟" : "Why RIP Appeared?"}</h3>
+      <p>
+        {lang === "ar" ? "في البداية الشبكات كانت:" : "Early networks were:"}
+      </p>
+      <ul>
+        <li>{lang === "ar" ? "صغيرة" : "Small"}</li>
+        <li>{lang === "ar" ? "عدد الراوترات قليل" : "Few routers"}</li>
+        <li>{lang === "ar" ? "مفيش تعقيد" : "No complexity"}</li>
+      </ul>
+
+      <p>
+        {lang === "ar"
+          ? "فكان المطلوب بروتوكول: سهل | مفهوم | ما يوجّعش الدماغ"
+          : "Protocol needed: Simple | Understandable | Not painful"}
       </p>
 
       <Callout type="important">
         {lang === "ar"
-          ? "الفائدة من وجود عدة مسارات: إذا فشل مسار واحد، الشبكة تبقى تعمل بفضل المسارات البديلة"
-          : "Multiple paths allow the network to remain operational even if one link fails"}
+          ? "RIP قالك: أعد القفزات وخلاص"
+          : "RIP says: Just count hops"}
       </Callout>
 
-      <h3>{lang === "ar" ? "أنواع الخوارزميات" : "Algorithm Types"}</h3>
-      <Table
-        headers={
-          lang === "ar"
-            ? ["النوع", "الوصف", "الخصائص"]
-            : ["Type", "Description", "Characteristics"]
-        }
-        rows={[
-          [
-            lang === "ar" ? "Distance-Vector" : "Distance-Vector",
-            lang === "ar"
-              ? "Router يتعلم من الجيران فقط"
-              : "Router learns from neighbors only",
-            lang === "ar" ? "بسيط، بطيء" : "Simple, Slow",
-          ],
-          [
-            lang === "ar" ? "Link-State" : "Link-State",
-            lang === "ar"
-              ? "Router يبني صورة كاملة للشبكة"
-              : "Router builds complete network map",
-            lang === "ar" ? "معقد، سريع" : "Complex, Fast",
-          ],
-        ]}
-      />
-    </Section>
-  );
-}
+      <h3>{lang === "ar" ? "إزاي بيشتغل؟" : "How Does It Work?"}</h3>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "كل 30 ثانية الراوتر يبعت Routing Table كامل"
+            : "Every 30 seconds router sends entire table"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "الجار يستقبل، يزوّد +1 hop"
+            : "Neighbor receives, increments by 1"}
+        </li>
+        <li>
+          {lang === "ar" ? "يقارن ويختار الأقل" : "Compares and chooses best"}
+        </li>
+      </ul>
 
-// Section 29: Convergence States
-export function ConvergenceStatesSection({ onVisible }) {
-  const { language: lang } = useLanguage();
-
-  return (
-    <Section
-      id="convergence-states"
-      number="29"
-      title="حالات التقارب"
-      titleEn="Convergence States"
-      onVisible={onVisible}
-    >
-      <h2>
-        {lang === "ar"
-          ? "Pre-Convergence - قبل المشكلة"
-          : "Pre-Convergence - Before Failure"}
-      </h2>
-      <p>
-        {lang === "ar"
-          ? "الحالة المثالية حيث كل Router لديه صورة صحيحة عن الشبكة"
-          : "All routers have correct and identical information about the network"}
-      </p>
-
-      <h2>
-        {lang === "ar"
-          ? "Mid-Convergence - أخطر مرحلة"
-          : "Mid-Convergence - Unstable State"}
-      </h2>
-      <p>
-        {lang === "ar"
-          ? "المرحلة التي تقع بين حدوث العطل واكتشافه من قبل جميع الموجهات"
-          : "The dangerous phase where some routers know about a failure and others don't"}
-      </p>
+      <h3>{lang === "ar" ? "ليه بيقع؟" : "Why Does It Fail?"}</h3>
+      <ul>
+        <li>
+          {lang === "ar"
+            ? "لو الشبكة كبرت → RIP يضيع"
+            : "Large network → RIP lost"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "مفيش Bandwidth consideration"
+            : "No Bandwidth awareness"}
+        </li>
+        <li>{lang === "ar" ? "مفيش Load awareness" : "No load awareness"}</li>
+        <li>{lang === "ar" ? "مفيش Reliability" : "No reliability"}</li>
+        <li>
+          {lang === "ar" ? "Convergence بطييييء" : "Convergence is very slow"}
+        </li>
+        <li>
+          {lang === "ar"
+            ? "loops ممكن تحصل (count to infinity)"
+            : "Loops possible (count to infinity)"}
+        </li>
+      </ul>
 
       <Callout type="warning">
         {lang === "ar"
-          ? "في هذه المرحلة قد تحدث Routing Loops و Packet Loss"
-          : "Routing loops and packet loss can occur during this state"}
+          ? "RIP مناسب شبكة صغيرة أوي… أكتر من كده؟ 🚫"
+          : "RIP suitable only for very small networks... anything bigger? 🚫"}
+      </Callout>
+    </Section>
+  );
+}
+
+// Section 42: RIP Sharing & Decision
+export function RIPSharingDecisionSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="rip-sharing-decision"
+      number="42"
+      title="RIP – Sharing & Decision Making"
+      titleEn="RIP - How RIP Makes Decisions"
+      onVisible={onVisible}
+    >
+      <h2>{lang === "ar" ? "العملية:" : "The Process:"}</h2>
+
+      <h3>{lang === "ar" ? "Router:" : "Router:"}</h3>
+      <ul>
+        <li>{lang === "ar" ? "يبعت الجدول" : "Sends the table"}</li>
+        <li>{lang === "ar" ? "الجار يزوّد hop" : "Neighbor increments hop"}</li>
+        <li>{lang === "ar" ? "يقارن" : "Compares"}</li>
+        <li>{lang === "ar" ? "يختار الأقل" : "Chooses best"}</li>
+      </ul>
+
+      <h3>{lang === "ar" ? "قرار التوجيه:" : "Routing Decision:"}</h3>
+      <Callout type="important">
+        {lang === "ar" ? "أقل hops وخلاص" : "Fewest hops, period"}
       </Callout>
 
+      <h3>{lang === "ar" ? "ما بيأخذه بعين الاعتبار:" : "What It Ignores:"}</h3>
+      <ul>
+        <li>{lang === "ar" ? "سرعة" : "Speed"}</li>
+        <li>{lang === "ar" ? "bandwidth" : "Bandwidth"}</li>
+        <li>{lang === "ar" ? "congestion" : "Congestion"}</li>
+      </ul>
+    </Section>
+  );
+}
+
+// Section 43: IGRP & EIGRP & OSPF & BGP Summary
+export function ProtocolsSummarySection({ onVisible }) {
+  const { language: lang } = useLanguage();
+
+  return (
+    <Section
+      id="protocols-summary"
+      number="43"
+      title="Protocol Comparison & Mental Models"
+      titleEn="Understanding All Routing Protocols"
+      onVisible={onVisible}
+    >
       <h2>
-        {lang === "ar"
-          ? "Post-Convergence - الاستقرار"
-          : "Post-Convergence - Stable State"}
+        {lang === "ar" ? "الصورة الذهنية الكبيرة" : "The Big Mental Model"}
       </h2>
-      <p>
-        {lang === "ar"
-          ? "كل الموجهات تحديثت جداول التوجيه وتعود للعمل الصحيح"
-          : "All routers have converged to a consistent routing state"}
-      </p>
-
-      <h3>{lang === "ar" ? "Convergence Time" : "Convergence Time"}</h3>
-      <p>
-        {lang === "ar"
-          ? "الوقت من حدوث العطل لحتى تستقر الشبكة"
-          : "Time from failure occurrence until network stability"}
-      </p>
-
       <ul>
         <li>
-          {lang === "ar"
-            ? "وقت قصير = شبكة قوية"
-            : "Short time = Strong network"}
+          <strong>
+            {lang === "ar" ? "Distance-Vector" : "Distance-Vector"}
+          </strong>{" "}
+          → {lang === "ar" ? "اسأل جارك" : "Ask your neighbor"}
         </li>
         <li>
-          {lang === "ar"
-            ? "يتأثر بعدد الموجهات والمسافة من مكان العطل"
-            : "Affected by number of routers and distance"}
+          <strong>{lang === "ar" ? "Link-State" : "Link-State"}</strong> →{" "}
+          {lang === "ar" ? "اعمل خريطة" : "Make a map"}
         </li>
         <li>
-          {lang === "ar"
-            ? "RIP بطيء، OSPF أسرع، BGP متوسط"
-            : "RIP slow, OSPF fastest, BGP moderate"}
-        </li>
-      </ul>
-    </Section>
-  );
-}
-
-// Section 30: Distance-Vector Routing Protocol
-export function DistanceVectorSection({ onVisible }) {
-  const { language: lang } = useLanguage();
-
-  return (
-    <Section
-      id="distance-vector"
-      number="30"
-      title="بروتوكول المتجه المسافة"
-      titleEn="Distance-Vector Routing Protocol"
-      onVisible={onVisible}
-    >
-      <h2>{lang === "ar" ? "المفهوم الأساسي" : "Core Concept"}</h2>
-      <p>
-        {lang === "ar"
-          ? "Router يعرف فقط الجيران والمسافة لكل وجهة. لا يرى الشبكة كاملة"
-          : "A router only knows about its neighbors and the distance to each destination. It doesn't see the complete network"}
-      </p>
-
-      <h3>{lang === "ar" ? "آلية العمل" : "How It Works"}</h3>
-      <ol>
-        <li>
-          {lang === "ar"
-            ? "كل Router يبعت جدول التوجيه كل 30 ثانية"
-            : "Each router sends its routing table every 30 seconds"}
+          <strong>RIP</strong> →{" "}
+          {lang === "ar" ? "بسيط بس غبي" : "Simple but dumb"}
         </li>
         <li>
-          {lang === "ar"
-            ? "الجيران يستقبلون الجدول ويضيفون 1 للقفزات"
-            : "Neighbors receive and increment the hop count by 1"}
+          <strong>OSPF</strong> →{" "}
+          {lang === "ar" ? "ذكي بس تقيل" : "Smart but heavy"}
         </li>
         <li>
-          {lang === "ar"
-            ? "يقارنون مع جداولهم ويحتفظون بالأقل"
-            : "They compare and keep the route with fewer hops"}
-        </li>
-      </ol>
-
-      <h3>{lang === "ar" ? "المميزات" : "Advantages"}</h3>
-      <ul>
-        <li>
-          {lang === "ar" ? "بسيط وسهل الفهم" : "Simple and easy to understand"}
-        </li>
-        <li>
-          {lang === "ar" ? "يتطلب موارد قليلة" : "Requires minimal resources"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "يعمل في الشبكات الصغيرة"
-            : "Works well in small networks"}
+          <strong>BGP</strong> →{" "}
+          {lang === "ar" ? "سياسي مش رياضي" : "Politician not mathematician"}
         </li>
       </ul>
 
-      <h3>{lang === "ar" ? "العيوب" : "Disadvantages"}</h3>
-      <ul>
-        <li>{lang === "ar" ? "بطيء في التقارب" : "Slow convergence"}</li>
-        <li>
-          {lang === "ar" ? "قد يحدث Routing Loops" : "Can create routing loops"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "لا يأخذ بعين الاعتبار Bandwidth أو التأخير"
-            : "Ignores bandwidth and delay"}
-        </li>
-        <li>{lang === "ar" ? "الحد الأقصى 15 قفزة" : "Maximum 15 hops"}</li>
-      </ul>
-
-      <Callout type="note">
-        {lang === "ar"
-          ? "مثال: RIP هو بروتوكول Distance-Vector"
-          : "Example: RIP is a Distance-Vector protocol"}
-      </Callout>
-    </Section>
-  );
-}
-
-// Section 31: Link-State Routing Protocol
-export function LinkStateSection({ onVisible }) {
-  const { language: lang } = useLanguage();
-
-  return (
-    <Section
-      id="link-state"
-      number="31"
-      title="بروتوكول حالة الوصلة"
-      titleEn="Link-State Routing Protocol"
-      onVisible={onVisible}
-    >
-      <h2>{lang === "ar" ? "المفهوم الأساسي" : "Core Concept"}</h2>
-      <p>
-        {lang === "ar"
-          ? "كل Router يبني خريطة كاملة للشبكة ويحتفظ بنسخة محدثة من جميع المعلومات"
-          : "Each router builds a complete map of the network and maintains an up-to-date copy of all link information"}
-      </p>
-
-      <h3>{lang === "ar" ? "آلية العمل" : "How It Works"}</h3>
-      <ol>
-        <li>
-          {lang === "ar"
-            ? "كل Router يبعث LSA (Link State Advertisement)"
-            : "Each router floods LSAs (Link State Advertisements)"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "جميع الموجهات تبني LSDB (Link State Database) موحد"
-            : "All routers build identical LSDB"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "كل Router يشغل SPF (Dijkstra) لحساب أقصر طريق"
-            : "Each router runs SPF algorithm"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "يبني جدول التوجيه بناءً على النتائج"
-            : "Builds routing table from results"}
-        </li>
-      </ol>
-
+      <h2>{lang === "ar" ? "الخطوة التالية:" : "More Details:"}</h2>
       <h3>
-        {lang === "ar"
-          ? "LSA - رسالة حالة الوصلة"
-          : "LSA - Link State Advertisement"}
+        {lang === "ar" ? "🟡 IGRP – تحسين RIP" : "🟡 IGRP - RIP Improvement"}
       </h3>
       <p>
         {lang === "ar"
-          ? "تتضمن: معرف Router، الواجهات المتصلة، تكلفة الوصلة، الموجهات المجاورة"
-          : "Contains: Router ID, connected interfaces, link cost, neighbor routers"}
+          ? "Cisco قالت: مش معقول نختار طريق وحش بس عشان hops أقل"
+          : "Cisco said: We can't choose bad path just because it has fewer hops"}
       </p>
-
-      <h3>{lang === "ar" ? "المميزات" : "Advantages"}</h3>
-      <ul>
-        <li>{lang === "ar" ? "تقارب سريع جداً" : "Very fast convergence"}</li>
-        <li>
-          {lang === "ar"
-            ? "تحديثات عند التغيير فقط"
-            : "Updates only on topology changes"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "يأخذ بعين الاعتبار تكاليف متعددة"
-            : "Considers multiple metrics"}
-        </li>
-        <li>{lang === "ar" ? "لا توجد Routing Loops" : "No routing loops"}</li>
-      </ul>
-
-      <h3>{lang === "ar" ? "العيوب" : "Disadvantages"}</h3>
-      <ul>
-        <li>{lang === "ar" ? "معقد وصعب الفهم" : "Complex to understand"}</li>
-        <li>
-          {lang === "ar" ? "يتطلب موارد أكثر" : "Requires more resources"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "استهلاك أعلى للذاكرة والمعالج"
-            : "Higher memory and CPU usage"}
-        </li>
-      </ul>
-
       <Callout type="note">
         {lang === "ar"
-          ? "مثال: OSPF هو بروتوكول Link-State"
-          : "Example: OSPF is a Link-State protocol"}
+          ? "طريق سريع بـ 3 hops وطريق بطئ بـ 2 hops → RIP يختار البطئ 🤦‍♂️"
+          : "Fast path with 3 hops vs slow path with 2 hops → RIP chooses slow one 🤦‍♂️"}
       </Callout>
-    </Section>
-  );
-}
 
-// Section 32: Routing Protocols Comparison
-export function RoutingProtocolsComparisonSection({ onVisible }) {
-  const { language: lang } = useLanguage();
+      <h4>{lang === "ar" ? "الحل:" : "Solution:"}</h4>
+      <p>
+        {lang === "ar"
+          ? "IGRP قال: خلينا نحسبها بعقل"
+          : "Let's calculate properly"}
+      </p>
+      <p>{lang === "ar" ? "مش hop بس، لا:" : "Not just hops:"}</p>
+      <ul>
+        <li>Bandwidth</li>
+        <li>Delay</li>
+        <li>Load</li>
+        <li>Reliability</li>
+        <li>MTU</li>
+      </ul>
+      <p>
+        {lang === "ar"
+          ? "كلهم يتحطوا في Composite Metric"
+          : "Combined in Composite Metric"}
+      </p>
 
-  return (
-    <Section
-      id="routing-protocols-comparison"
-      number="32"
-      title="مقارنة بروتوكولات التوجيه"
-      titleEn="Routing Protocols Comparison"
-      onVisible={onVisible}
-    >
+      <h3>
+        {lang === "ar"
+          ? "🔵 EIGRP – الذكاء الحقيقي"
+          : "🔵 EIGRP - Real Intelligence"}
+      </h3>
+      <p>
+        {lang === "ar"
+          ? "الشبكات كبرت + بقت dynamic. Cisco قالت: لازم نتحرك أسرع ونعرف أكتر"
+          : "Networks grew + became dynamic. Cisco said: Must move faster and know more"}
+      </p>
+      <Callout type="important">
+        {lang === "ar"
+          ? "EIGRP: مش أعمى زي RIP | ومش تقيل زي OSPF | نص نص → Hybrid"
+          : "EIGRP: Not blind like RIP | Not heavy like OSPF | Balance → Hybrid"}
+      </Callout>
+
+      <h4>{lang === "ar" ? "إزاي بيفكر؟" : "How Does It Think?"}</h4>
+      <ul>
+        <li>{lang === "ar" ? "يحتفظ بكل المسارات" : "Keeps all paths"}</li>
+        <li>{lang === "ar" ? "مش بس الأفضل" : "Not just the best"}</li>
+        <li>
+          {lang === "ar"
+            ? "جاهز يبدّل فورًا لو مسار وقع"
+            : "Ready to switch instantly if path fails"}
+        </li>
+      </ul>
+
+      <h4>{lang === "ar" ? "عمليًا:" : "Practically:"}</h4>
+      <ul>
+        <li>
+          {lang === "ar" ? "مفيش updates كل شوية" : "No periodic updates"}
+        </li>
+        <li>
+          {lang === "ar" ? "تحديث بس وقت التغيير" : "Updates only on change"}
+        </li>
+        <li>
+          {lang === "ar" ? "convergence سريع جدًا" : "Convergence very fast"}
+        </li>
+        <li>{lang === "ar" ? "أقل ترافيك" : "Less traffic"}</li>
+      </ul>
+
+      <Callout type="success">
+        {lang === "ar"
+          ? "EIGRP = RIP + IGRP + ذكاء إضافي 🧠"
+          : "EIGRP = RIP + IGRP + extra intelligence 🧠"}
+      </Callout>
+
+      <h3>
+        {lang === "ar"
+          ? "🔴 OSPF – خريطة الشبكة الكاملة"
+          : "🔴 OSPF - Complete Network Map"}
+      </h3>
+      <Callout type="note">
+        {lang === "ar"
+          ? "تخيل مدينة كبيرة: ينفع تمشي من غير خريطة؟ لا"
+          : "Imagine a big city: Can you navigate without a map? No"}
+      </Callout>
+
+      <p>
+        {lang === "ar"
+          ? "OSPF قال: كل راوتر يبقى معاه الخريطة كلها"
+          : "Each router has the complete map"}
+      </p>
+
+      <h4>{lang === "ar" ? "إزاي؟" : "How?"}</h4>
+      <ul>
+        <li>
+          {lang === "ar" ? "كل Router ليه Router ID" : "Each router has ID"}
+        </li>
+        <li>{lang === "ar" ? "يبعت LSAs" : "Sends LSAs"}</li>
+        <li>
+          {lang === "ar"
+            ? "كل الشبكة تبني LSDB واحدة"
+            : "All build identical LSDB"}
+        </li>
+        <li>
+          {lang === "ar" ? "يشغّل SPF (Dijkstra)" : "Runs SPF (Dijkstra)"}
+        </li>
+      </ul>
+
+      <h4>{lang === "ar" ? "ليه Areas؟" : "Why Areas?"}</h4>
+      <ul>
+        <li>{lang === "ar" ? "تقلل load" : "Reduce load"}</li>
+        <li>{lang === "ar" ? "تنظّم الشبكة" : "Organize network"}</li>
+        <li>
+          {lang === "ar" ? "backbone area = العمود الفقري" : "Backbone = spine"}
+        </li>
+      </ul>
+
+      <h4>{lang === "ar" ? "النتيجة؟" : "Result?"}</h4>
+      <ul>
+        <li>{lang === "ar" ? "قرارات دقيقة" : "Precise decisions"}</li>
+        <li>{lang === "ar" ? "convergence سريع" : "Fast convergence"}</li>
+        <li>{lang === "ar" ? "scalable" : "Scalable"}</li>
+        <li>{lang === "ar" ? "secure" : "Secure"}</li>
+      </ul>
+
+      <Callout type="success">
+        {lang === "ar"
+          ? "OSPF مناسب Enterprise وشبكات كبيرة جدًا"
+          : "OSPF perfect for Enterprise and very large networks"}
+      </Callout>
+
+      <h3>
+        {lang === "ar"
+          ? "⚫ BGP – ملك الإنترنت"
+          : "⚫ BGP - King of the Internet"}
+      </h3>
+      <p>
+        {lang === "ar"
+          ? "بين شركات، دول، مزودين خدمة:"
+          : "Between companies, countries, providers:"}
+      </p>
+      <Callout type="important">
+        {lang === "ar"
+          ? "الأداء مش أهم حاجة. السياسة أهم"
+          : "Performance is not most important. Policy is"}
+      </Callout>
+
+      <h4>{lang === "ar" ? "إزاي بيفكر؟" : "How Does It Think?"}</h4>
+      <p>{lang === "ar" ? "مش:" : "Not:"}</p>
+      <ul>
+        <li>hops</li>
+        <li>bandwidth</li>
+      </ul>
+
+      <p>{lang === "ar" ? "لكن:" : "But:"}</p>
+      <ul>
+        <li>{lang === "ar" ? "مين ورا مين؟" : "Who's behind whom?"}</li>
+        <li>
+          {lang === "ar"
+            ? "المسار عدّى على أنهي AS؟"
+            : "Which AS does path go through?"}
+        </li>
+        <li>{lang === "ar" ? "هل فيه loops؟" : "Are there loops?"}</li>
+      </ul>
+
+      <h4>{lang === "ar" ? "عمليًا:" : "Practically:"}</h4>
+      <ul>
+        <li>Path-Vector</li>
+        <li>policy-based</li>
+        <li>
+          {lang === "ar"
+            ? "مش أسرع طريق… لكن أأمن طريق"
+            : "Not fastest... but safest path"}
+        </li>
+      </ul>
+
+      <Callout type="success">
+        {lang === "ar"
+          ? "BGP هو اللي ماسك الإنترنت كله"
+          : "BGP holds the entire internet together"}
+      </Callout>
+
       <h2>
-        {lang === "ar" ? "RIP - أبسط بروتوكول" : "RIP - Simplest Protocol"}
+        {lang === "ar" ? "الصورة الذهنية الثانية" : "Second Mental Model"}
       </h2>
       <ul>
-        <li>{lang === "ar" ? "Distance-Vector" : "Distance-Vector"}</li>
         <li>
-          {lang === "ar" ? "تحديثات كل 30 ثانية" : "Updates every 30 seconds"}
-        </li>
-        <li>{lang === "ar" ? "أقصى قفزات: 15" : "Max hops: 15"}</li>
-        <li>{lang === "ar" ? "بطيء وغير فعال" : "Slow and inefficient"}</li>
-      </ul>
-
-      <h2>{lang === "ar" ? "IGRP - تطور RIP" : "IGRP - RIP Evolution"}</h2>
-      <ul>
-        <li>
-          {lang === "ar" ? "Distance-Vector محسّن" : "Enhanced Distance-Vector"}
+          <strong>RIP</strong> → {lang === "ar" ? "عدّ وخلاص" : "Just count"}
         </li>
         <li>
-          {lang === "ar"
-            ? "يدعم مقاييس متعددة (Bandwidth, Delay, Load)"
-            : "Multiple metrics support"}
-        </li>
-        <li>{lang === "ar" ? "أقصى قفزات: 255" : "Max hops: 255"}</li>
-        <li>
-          {lang === "ar"
-            ? "أفضل من RIP لكن أبطأ من EIGRP"
-            : "Better than RIP but slower than EIGRP"}
-        </li>
-      </ul>
-
-      <h2>{lang === "ar" ? "EIGRP - الهجين الذكي" : "EIGRP - Smart Hybrid"}</h2>
-      <ul>
-        <li>
-          {lang === "ar"
-            ? "Hybrid (Distance-Vector + Link-State)"
-            : "Hybrid (Distance-Vector + Link-State)"}
+          <strong>IGRP</strong> →{" "}
+          {lang === "ar" ? "عدّ واحسب شوية" : "Count and calculate a bit"}
         </li>
         <li>
-          {lang === "ar"
-            ? "تحديثات عند التغيير فقط"
-            : "Updates only on changes"}
+          <strong>EIGRP</strong> →{" "}
+          {lang === "ar" ? "فكّر وكن جاهز" : "Think and be ready"}
         </li>
-        <li>{lang === "ar" ? "تقارب سريع" : "Fast convergence"}</li>
         <li>
-          {lang === "ar" ? "يدعم مسارات متعددة" : "Supports multiple paths"}
+          <strong>OSPF</strong> →{" "}
+          {lang === "ar" ? "معاك خريطة كاملة" : "You have the complete map"}
+        </li>
+        <li>
+          <strong>BGP</strong> →{" "}
+          {lang === "ar" ? "سياسة قبل السرعة" : "Policy before speed"}
         </li>
       </ul>
 
       <h2>
         {lang === "ar"
-          ? "OSPF - الأفضل للشبكات الكبيرة"
-          : "OSPF - Best for Large Networks"}
+          ? "جدول المقارنة الشامل"
+          : "Comprehensive Comparison Table"}
       </h2>
-      <ul>
-        <li>{lang === "ar" ? "Link-State" : "Link-State"}</li>
-        <li>
-          {lang === "ar" ? "يدعم Areas (تقسيم الشبكة)" : "Supports Areas"}
-        </li>
-        <li>{lang === "ar" ? "تقارب جداً سريع" : "Very fast convergence"}</li>
-        <li>
-          {lang === "ar" ? "يدعم Authentication" : "Supports authentication"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "الأمثل للشبكات Enterprise"
-            : "Optimal for Enterprise networks"}
-        </li>
-      </ul>
-
-      <h2>
-        {lang === "ar"
-          ? "BGP - حدود الأنظمة المستقلة"
-          : "BGP - Between Autonomous Systems"}
-      </h2>
-      <ul>
-        <li>{lang === "ar" ? "Path-Vector" : "Path-Vector"}</li>
-        <li>
-          {lang === "ar"
-            ? "يستخدم السياسة وليس الأداء فقط"
-            : "Policy-based, not performance-based"}
-        </li>
-        <li>
-          {lang === "ar"
-            ? "يعمل بين الشبكات الكبيرة (الإنترنت)"
-            : "Works between large networks (Internet)"}
-        </li>
-        <li>{lang === "ar" ? "معقد جداً" : "Very complex"}</li>
-      </ul>
-
       <Table
         headers={
           lang === "ar"
-            ? ["الميزة", "RIP", "EIGRP", "OSPF", "BGP"]
-            : ["Feature", "RIP", "EIGRP", "OSPF", "BGP"]
+            ? ["Feature", "RIP", "IGRP", "EIGRP", "OSPF", "BGP"]
+            : ["Feature", "RIP", "IGRP", "EIGRP", "OSPF", "BGP"]
         }
         rows={[
           [
-            lang === "ar" ? "النوع" : "Type",
+            lang === "ar" ? "Type" : "Type",
+            "DV",
             "DV",
             "Hybrid",
             "LS",
             "Path-Vector",
           ],
           [
-            lang === "ar" ? "التقارب" : "Convergence",
+            lang === "ar" ? "Metrics" : "Metrics",
+            lang === "ar" ? "Hop Count" : "Hop Count",
+            lang === "ar" ? "Multiple" : "Multiple",
+            lang === "ar" ? "Multiple + composite" : "Multiple + composite",
+            lang === "ar" ? "Cost" : "Cost",
+            lang === "ar" ? "Policy-based" : "Policy-based",
+          ],
+          [
+            lang === "ar" ? "Updates" : "Updates",
+            lang === "ar" ? "Periodic" : "Periodic",
+            lang === "ar" ? "Periodic" : "Periodic",
+            lang === "ar" ? "On change" : "On change",
+            lang === "ar" ? "On change" : "On change",
+            lang === "ar" ? "On change" : "On change",
+          ],
+          [
+            lang === "ar" ? "Convergence" : "Convergence",
             lang === "ar" ? "بطيء" : "Slow",
+            lang === "ar" ? "متوسط" : "Moderate",
             lang === "ar" ? "سريع" : "Fast",
-            lang === "ar" ? "جداً سريع" : "Very Fast",
+            lang === "ar" ? "سريع جدًا" : "Very Fast",
             lang === "ar" ? "متوسط" : "Moderate",
           ],
           [
-            lang === "ar" ? "الاستخدام" : "Use",
-            lang === "ar" ? "صغير" : "Small",
-            lang === "ar" ? "متوسط" : "Medium",
-            lang === "ar" ? "كبير" : "Large",
-            lang === "ar" ? "إنترنت" : "Internet",
+            lang === "ar" ? "Scale" : "Scale",
+            lang === "ar" ? "Small LAN" : "Small LAN",
+            lang === "ar" ? "Medium-LAN" : "Medium-LAN",
+            lang === "ar" ? "Large-LAN" : "Large-LAN",
+            lang === "ar" ? "Large/Enterprise" : "Large/Enterprise",
+            lang === "ar" ? "Internet" : "Internet",
           ],
           [
-            lang === "ar" ? "التعقيد" : "Complexity",
-            lang === "ar" ? "بسيط" : "Simple",
-            lang === "ar" ? "متوسط" : "Moderate",
-            lang === "ar" ? "معقد" : "Complex",
-            lang === "ar" ? "جداً معقد" : "Very Complex",
+            lang === "ar" ? "Loop Prevention" : "Loop Prevention",
+            lang === "ar" ? "Count to infinity" : "Count to infinity",
+            lang === "ar" ? "Count to infinity" : "Count to infinity",
+            lang === "ar" ? "Feasible Distance" : "Feasible Distance",
+            lang === "ar" ? "SPF + LSAs" : "SPF + LSAs",
+            lang === "ar" ? "Path info + loop check" : "Path info + loop check",
           ],
         ]}
       />

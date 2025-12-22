@@ -31,11 +31,23 @@ import {
   RouterRolesWANSection,
   AutonomousSystemsSection,
   RoutingTableDeepSection,
-  RoutingAlgorithmsSection,
-  ConvergenceStatesSection,
-  DistanceVectorSection,
-  LinkStateSection,
-  RoutingProtocolsComparisonSection,
+  RoutingAlgorithmsOverviewSection,
+  PreConvergenceSection,
+  NetworkFailureScenariosSection,
+  LinkFailureImpactSection,
+  MidConvergenceSection,
+  PostConvergenceSection,
+  ConvergenceTimeSection,
+  RoutingMetricsSection,
+  DistanceVectorRoutingSection,
+  LinkStateRoutingSection,
+  LinkStateRoutingFunctionsSection,
+  LSAPacketSection,
+  RoutingProtocolTypesSection,
+  EIGRPBGPSection,
+  RIPDetailedSection,
+  RIPSharingDecisionSection,
+  ProtocolsSummarySection,
 } from "./content/ContentSections";
 
 function AppContent() {
@@ -202,13 +214,29 @@ function AppContent() {
           {/* Lecture 6 & 7 Content */}
           {activeLecture === "lecture-6-7" && (
             <>
-              <RoutingAlgorithmsSection onVisible={handleSectionVisible} />
-              <ConvergenceStatesSection onVisible={handleSectionVisible} />
-              <DistanceVectorSection onVisible={handleSectionVisible} />
-              <LinkStateSection onVisible={handleSectionVisible} />
-              <RoutingProtocolsComparisonSection
+              <RoutingAlgorithmsOverviewSection
                 onVisible={handleSectionVisible}
               />
+              <PreConvergenceSection onVisible={handleSectionVisible} />
+              <NetworkFailureScenariosSection
+                onVisible={handleSectionVisible}
+              />
+              <LinkFailureImpactSection onVisible={handleSectionVisible} />
+              <MidConvergenceSection onVisible={handleSectionVisible} />
+              <PostConvergenceSection onVisible={handleSectionVisible} />
+              <ConvergenceTimeSection onVisible={handleSectionVisible} />
+              <RoutingMetricsSection onVisible={handleSectionVisible} />
+              <DistanceVectorRoutingSection onVisible={handleSectionVisible} />
+              <LinkStateRoutingSection onVisible={handleSectionVisible} />
+              <LinkStateRoutingFunctionsSection
+                onVisible={handleSectionVisible}
+              />
+              <LSAPacketSection onVisible={handleSectionVisible} />
+              <RoutingProtocolTypesSection onVisible={handleSectionVisible} />
+              <EIGRPBGPSection onVisible={handleSectionVisible} />
+              <RIPDetailedSection onVisible={handleSectionVisible} />
+              <RIPSharingDecisionSection onVisible={handleSectionVisible} />
+              <ProtocolsSummarySection onVisible={handleSectionVisible} />
             </>
           )}
         </div>
