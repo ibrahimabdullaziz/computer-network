@@ -2119,6 +2119,116 @@ export const translations = {
     },
   },
 
+  // Section 47: Detailed Metrics
+  networkMetricsDetailed: {
+    intro: {
+      ar: "أي مسار في الشبكة (Network Path) هو مجموعة وصلات (Links) ورا بعض. السؤال دايمًا: المسار ده هيبقى كويس ولا وحش؟ الإجابة بتيجي من المقاييس (Metrics) بس كل Metric ليه طريقة حساب مختلفة.",
+      en: "Any network path is a series of links. The question is always: will this path be good or bad? The answer comes from Metrics, but each Metric is calculated differently.",
+    },
+    types: {
+      concave: {
+        title: "➗ Concave Metrics",
+        desc: {
+          ar: "القيمة النهائية = الحد الأدنى لكل الوصلات في المسار. يعني المسار كله يتأثر بأضعف وصلة.",
+          en: "Final value = minimum of all links in the path. The entire path is affected by the weakest link.",
+        },
+        examples: "Bandwidth, MTU",
+      },
+      additive: {
+        title: "➕ Additive Metrics",
+        desc: {
+          ar: "نجمع كل الوصلات في المسار. كل ما المسار أطول أو أكثر وصلات → القيمة تزيد.",
+          en: "We sum all links in the path. The longer the path or the more links → the value increases.",
+        },
+        examples: "Delay, Cost, Hop Count",
+      },
+      multiplicative: {
+        title: "🔀 Multiplicative Metrics",
+        desc: {
+          ar: "نضرب قيم الوصلات ببعض. يستخدم لتقييم احتمالات فقدان الحزم أو الموثوقية.",
+          en: "We multiply link values together. Used to evaluate packet loss probabilities or reliability.",
+        },
+        examples: "Reliability (Probability)",
+      },
+    },
+    metricsDetail: [
+      {
+        id: "delay",
+        title: "1️⃣ Delay (التأخير)",
+        type: "Additive",
+        ar: "الباكت بتتأخر قد إيه من أولها لآخرها. الباكت لازم تعدي على كل الوصلات، فالتأخير بيتجمع.",
+        en: "How long the packet takes from start to end. The packet must pass through all links, so delay is additive.",
+        components: {
+          ar: ["وقت الإرسال (Transmission)", "وقت السفر (Propagation)", "وقت المعالجة (Processing)", "وقت الزحمة (Queuing)"],
+          en: ["Transmission Delay", "Propagation Delay", "Processing Delay", "Queuing Delay"],
+        },
+      },
+      {
+        id: "jitter",
+        title: "2️⃣ Jitter (تذبذب التأخير)",
+        type: "Additive",
+        ar: "مش التأخير نفسه، لكن تغيّره. التذبذب بيتراكم، ومهم جدًا لتطبيقات الصوت والفيديو.",
+        en: "Not the delay itself, but its variation. Variation accumulates, and it is crucial for voice and video applications.",
+      },
+      {
+        id: "bandwidth",
+        title: "3️⃣ Bandwidth (عرض النطاق)",
+        type: "Concave",
+        ar: "أقصى سعة الطريق. المسار كله يتأثر بأضعف وصلة (Bottleneck).",
+        en: "Maximum path capacity. The entire path is limited by the weakest link (Bottleneck).",
+      },
+      {
+        id: "connectivity",
+        title: "4️⃣ Connection Possibility",
+        type: "Concave",
+        ar: "ينفع الباكت تعدي ولا لأ؟ لو فيه وصلة واحدة بنسبة 0% يبقى المسار مات.",
+        en: "Can the packet pass or not? If one link is 0%, the entire path is dead.",
+      },
+      {
+        id: "ber",
+        title: "5️⃣ Bit Error Ratio (BER)",
+        type: "Multiplicative",
+        ar: "نسبة الغلط في البتات. احتمالات الخطأ بتضرب في بعضها وتتراكم.",
+        en: "Bit Error Ratio. Error probabilities multiply and accumulate.",
+      },
+      {
+        id: "throughput",
+        title: "6️⃣ Throughput (معدل النقل الفعلي)",
+        type: "Concave",
+        ar: "اللي بيعدي بجد مش نظري. زي الـ Bandwidth، بيتأثر بأبطأ حتة.",
+        en: "What actually passes, not theoretical. Like Bandwidth, it's affected by the slowest part.",
+      },
+      {
+        id: "hopCount",
+        title: "7️⃣ Hop Count",
+        type: "Additive",
+        ar: "عدد القفزات (الراوترات). كل خطوة بتزود 1.",
+        en: "Number of hops (routers). Each step adds 1.",
+      },
+      {
+        id: "security",
+        title: "8️⃣ Security",
+        type: "Concave",
+        ar: "أمان المسار. لو حتة واحدة غير مشفرة أو غير آمنة، يبقى المسار كله غير آمن.",
+        en: "Path security. If one part is unencrypted or insecure, the entire path is insecure.",
+      },
+      {
+        id: "billing",
+        title: "9️⃣ Billing (التكلفة)",
+        type: "Additive",
+        ar: "التكلفة المادية لكل وصلة بتتجمع مع بعض.",
+        en: "The financial cost of each link is added together.",
+      },
+      {
+        id: "mtu",
+        title: "🔟 MTU",
+        type: "Concave",
+        ar: "أكبر حجم باكت مسموح. أصغر MTU في المسار هو اللي بيحكم الكل.",
+        en: "Maximum Transmission Unit. The smallest MTU in the path governs the whole path.",
+      },
+    ],
+  },
+
   // Common UI elements
   ui: {
     createdBy: { ar: "من إنشاء", en: "Created by" },

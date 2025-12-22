@@ -3414,3 +3414,63 @@ export function WANProtocolsSection({ onVisible }) {
     </Section>
   );
 }
+
+export function NetworkMetricsDetailedSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+  const tr = t.networkMetricsDetailed;
+
+  return (
+    <Section
+      id="network-metrics-detailed"
+      number="47"
+      title="Network Metrics Deep Dive"
+      titleEn="Network Metrics Deep Dive"
+      onVisible={onVisible}
+    >
+      <p>{tr.intro[lang]}</p>
+
+      <h2>{lang === "ar" ? "أنواع المقاييس (Metric Types)" : "Metric Types"}</h2>
+      
+      <div className="card-grid">
+        <div className="card">
+          <h3>{tr.types.concave.title}</h3>
+          <p>{tr.types.concave.desc[lang]}</p>
+          <Callout type="tip">📌 {tr.types.concave.examples}</Callout>
+        </div>
+        <div className="card">
+          <h3>{tr.types.additive.title}</h3>
+          <p>{tr.types.additive.desc[lang]}</p>
+          <Callout type="tip">📌 {tr.types.additive.examples}</Callout>
+        </div>
+        <div className="card">
+          <h3>{tr.types.multiplicative.title}</h3>
+          <p>{tr.types.multiplicative.desc[lang]}</p>
+          <Callout type="tip">📌 {tr.types.multiplicative.examples}</Callout>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>{lang === "ar" ? "شرح المقاييس بالتفصيل" : "Metrics in Detail"}</h2>
+
+      {tr.metricsDetail.map((metric) => (
+        <div key={metric.id} className="detail-item">
+          <h3>{metric.title}</h3>
+          <p>
+            <strong>{lang === "ar" ? "نوع الحساب: " : "Calculation Type: "}</strong>
+            <span className="term">{metric.type}</span>
+          </p>
+          <p>{metric[lang]}</p>
+          {metric.components && (
+            <ul>
+              {metric.components[lang].map((comp, i) => (
+                <li key={i}>{comp}</li>
+              ))}
+            </ul>
+          )}
+          <hr className="sub-hr" />
+        </div>
+      ))}
+    </Section>
+  );
+}

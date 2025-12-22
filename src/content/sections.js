@@ -39,4 +39,5 @@ export const sections = [
   { id: "vpn", title: "VPN | Virtual Private Network" },
   { id: "ports", title: "Ports | Network Ports" },
   { id: "wan-protocols", title: "WAN Protocols (X.25, Frame Relay, ATM)" },
+  { id: "network-metrics-detailed", title: "Network Metrics Deep Dive" },
 ];

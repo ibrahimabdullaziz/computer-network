@@ -51,6 +51,7 @@ import {
   VPNSection,
   PortsSection,
   WANProtocolsSection,
+  NetworkMetricsDetailedSection,
 } from "./content/ContentSections";
 
 function AppContent() {
@@ -249,6 +250,7 @@ function AppContent() {
               <VPNSection onVisible={handleSectionVisible} />
               <PortsSection onVisible={handleSectionVisible} />
               <WANProtocolsSection onVisible={handleSectionVisible} />
+              <NetworkMetricsDetailedSection onVisible={handleSectionVisible} />
             </>
           )}
         </div>

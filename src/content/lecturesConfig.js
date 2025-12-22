@@ -308,6 +308,12 @@ export const lectures = [
         titleAr: "WAN Protocols (X.25, Frame Relay, ATM)",
         titleEn: "WAN Protocols (X.25, Frame Relay, ATM)",
       },
+      {
+        id: "network-metrics-detailed",
+        number: "47",
+        titleAr: "Network Metrics Deep Dive",
+        titleEn: "Network Metrics Deep Dive",
+      },
     ],
   },
 ];
