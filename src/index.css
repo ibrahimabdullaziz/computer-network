@@ -59,6 +59,7 @@
   /* Layout */
   --sidebar-width: 300px;
   --content-max-width: 800px;
+  --header-height: 64px;
   --border-radius-sm: 6px;
   --border-radius-md: 10px;
   --border-radius-lg: 16px;
@@ -293,6 +294,7 @@ body {
   flex: 1;
   margin-right: var(--sidebar-width);
   padding: var(--space-3xl);
+  overflow-x: hidden; /* Prevent horizontal overflow from components */
 }
 
 .content {
@@ -1119,7 +1121,7 @@ hr {
   .main {
     margin-right: 0;
     padding: var(--space-lg);
-    padding-top: calc(64px + var(--space-lg));
+    padding-top: calc(var(--header-height) + var(--space-lg));
   }
 
   .content {
@@ -1165,6 +1167,12 @@ hr {
   th,
   td {
     padding: var(--space-sm);
+    word-break: break-word;
+  }
+
+  th {
+    white-space: normal;
+    min-width: 100px;
   }
 
   /* Callout improvements */
@@ -1301,6 +1309,67 @@ hr {
 
   p {
     margin-bottom: var(--space-sm);
+  }
+}
+
+/* ===================================
+   DESKTOP TOGGLES (New Feature)
+   =================================== */
+@media (min-width: 769px) {
+  .header-toggles {
+    position: fixed;
+    top: var(--space-lg);
+    left: var(--space-lg);
+    z-index: 1000;
+    display: flex;
+    gap: var(--space-md);
+    background: var(--color-bg-card);
+    padding: var(--space-sm);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  :root.dark .header-toggles {
+    background: var(--color-bg-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .dark-mode-toggle,
+  .language-toggle {
+    position: static;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    border: none;
+    font-size: var(--text-base);
+  }
+
+  .dark-mode-toggle {
+    background: var(--color-accent-gradient);
+    color: white;
+  }
+
+  .language-toggle {
+    background: var(--color-bg-secondary);
+    border: 2px solid var(--color-accent-primary);
+    color: var(--color-accent-primary);
+    font-family: var(--font-english);
+    font-weight: 700;
+  }
+
+  .language-toggle:hover {
+    background: var(--color-accent-primary);
+    color: white;
+  }
+
+  :root.dark .language-toggle {
+    background: var(--color-bg-card);
   }
 }
 
