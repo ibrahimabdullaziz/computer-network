@@ -832,7 +832,7 @@ hr {
 
 /* Mobile Header - hidden on desktop */
 .mobile-header {
-  display: none;
+  display: block;
 }
 
 /* Menu Toggle (part of mobile header) */
