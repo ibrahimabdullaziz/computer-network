@@ -35,4 +35,8 @@ export const sections = [
   { id: "distance-vector", title: "Distance-Vector Routing Protocol" },
   { id: "link-state", title: "Link-State Routing Protocol" },
   { id: "routing-protocols-comparison", title: "Routing Protocols Comparison" },
+  // Lecture 8: Advanced Topics & WAN Protocols
+  { id: "vpn", title: "VPN | Virtual Private Network" },
+  { id: "ports", title: "Ports | Network Ports" },
+  { id: "wan-protocols", title: "WAN Protocols (X.25, Frame Relay, ATM)" },
 ];

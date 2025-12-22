@@ -3125,3 +3125,292 @@ export function ProtocolsSummarySection({ onVisible }) {
     </Section>
   );
 }
+
+export function VPNSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+  const tr = t.vpn;
+
+  return (
+    <Section
+      id="vpn"
+      number="44"
+      title="VPN | Virtual Private Network"
+      titleEn="VPN | Virtual Private Network"
+      onVisible={onVisible}
+    >
+      <p>{tr.intro[lang]}</p>
+
+      <h2>{tr.bigPicture.title[lang]}</h2>
+      <h3>{tr.bigPicture.internet.title[lang]}</h3>
+      <ul>
+        {tr.bigPicture.internet.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <h3>{tr.bigPicture.vpn.title[lang]}</h3>
+      <ul>
+        {tr.bigPicture.vpn.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+
+      <hr />
+
+      <h2>{tr.whyUse.title[lang]}</h2>
+      <ul>
+        {tr.whyUse.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <blockquote>{tr.whyUse.summary[lang]}</blockquote>
+
+      <hr />
+
+      <h2>{tr.howWorks.title[lang]}</h2>
+      <ol>
+        {tr.howWorks.steps[lang].map((step, i) => (
+          <li key={i}>{step}</li>
+        ))}
+      </ol>
+      <Callout type="tip">{tr.howWorks.quote[lang]}</Callout>
+
+      <hr />
+
+      <h2>{tr.components.title[lang]}</h2>
+      <Table
+        headers={tr.components.headers[lang]}
+        rows={tr.components.rows.map((row) =>
+          row.map((cell) => (typeof cell === "object" ? cell[lang] : cell))
+        )}
+      />
+
+      <hr />
+
+      <h2>{tr.authMethods.title[lang]}</h2>
+      <ul>
+        {tr.authMethods.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <blockquote>{tr.authMethods.goal[lang]}</blockquote>
+
+      <hr />
+
+      <h2>{tr.encryption.title[lang]}</h2>
+      <p>{tr.encryption.desc[lang]}</p>
+      <ul>
+        {tr.encryption.examples.map((ex, i) => (
+          <li key={i}>{ex}</li>
+        ))}
+      </ul>
+
+      <hr />
+
+      <h2>{tr.protocols.title[lang]}</h2>
+      <Table
+        headers={tr.protocols.headers[lang]}
+        rows={tr.protocols.rows.map((row) =>
+          row.map((cell) => (typeof cell === "object" ? cell[lang] : cell))
+        )}
+      />
+
+      <hr />
+
+      <h2>{tr.types.title[lang]}</h2>
+      <h3>{tr.types.remoteAccess.title}</h3>
+      <ul>
+        {tr.types.remoteAccess.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <h3>{tr.types.siteToSite.title}</h3>
+      <ul>
+        {tr.types.siteToSite.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <h3>{tr.types.clientToSite.title}</h3>
+      <p>{tr.types.clientToSite.desc[lang]}</p>
+
+      <hr />
+
+      <h2>{tr.comparison.title[lang]}</h2>
+      <h3>{tr.comparison.normal.title[lang]}</h3>
+      <ul>
+        {tr.comparison.normal.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <h3>{tr.comparison.vpn.title[lang]}</h3>
+      <ul>
+        {tr.comparison.vpn.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+
+      <hr />
+
+      <h2>{tr.importantNotes.title[lang]}</h2>
+      <ul>
+        {tr.importantNotes.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+export function PortsSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+  const tr = t.ports;
+
+  return (
+    <Section
+      id="ports"
+      number="45"
+      title="🔌 Ports | Network Ports"
+      titleEn="🔌 Ports | Network Ports"
+      onVisible={onVisible}
+    >
+      <p>{tr.intro[lang]}</p>
+
+      <h2>{tr.mentalImage.title[lang]}</h2>
+      <ul>
+        <li>{tr.mentalImage.ip[lang]}</li>
+        <li>{tr.mentalImage.port[lang]}</li>
+      </ul>
+      <blockquote>{tr.mentalImage.analogy[lang]}</blockquote>
+
+      <hr />
+
+      <h2>{tr.whyImportant.title[lang]}</h2>
+      <p>{tr.whyImportant.desc[lang]}</p>
+
+      <hr />
+
+      <h2>{tr.howWorks.title[lang]}</h2>
+      <ol>
+        {tr.howWorks.steps[lang].map((step, i) => (
+          <li key={i}>{step}</li>
+        ))}
+      </ol>
+
+      <hr />
+
+      <h2>{tr.inPacket.title[lang]}</h2>
+      <p>{tr.inPacket.desc[lang]}</p>
+      <Callout type="note">{tr.inPacket.headerContains[lang]}</Callout>
+
+      <hr />
+
+      <h2>{tr.ranges.title[lang]}</h2>
+      <Table
+        headers={tr.ranges.headers[lang]}
+        rows={tr.ranges.rows.map((row) =>
+          row.map((cell) => (typeof cell === "object" ? cell[lang] : cell))
+        )}
+      />
+
+      <hr />
+
+      <h2>{tr.wellKnown.title[lang]}</h2>
+      <Table headers={tr.wellKnown.headers[lang]} rows={tr.wellKnown.rows} />
+
+      <hr />
+
+      <h2>{tr.sourceVsDest.title[lang]}</h2>
+      <h3>{tr.sourceVsDest.dest.title[lang]}</h3>
+      <ul>
+        {tr.sourceVsDest.dest.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <h3>{tr.sourceVsDest.source.title[lang]}</h3>
+      <ul>
+        {tr.sourceVsDest.source.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <Callout type="tip">{tr.sourceVsDest.example[lang]}</Callout>
+
+      <hr />
+
+      <h2>{tr.tcpVsUdp.title[lang]}</h2>
+      <Table
+        headers={tr.tcpVsUdp.headers[lang]}
+        rows={tr.tcpVsUdp.rows.map((row) =>
+          row.map((cell) => (typeof cell === "object" ? cell[lang] : cell))
+        )}
+      />
+
+      <hr />
+
+      <h2>{tr.security.title[lang]}</h2>
+      <ul>
+        {tr.security.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+      <Callout type="important">{tr.security.tip[lang]}</Callout>
+
+      <hr />
+
+      <h2>{tr.importantNotes.title[lang]}</h2>
+      <ul>
+        {tr.importantNotes.list[lang].map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+export function WANProtocolsSection({ onVisible }) {
+  const { language: lang } = useLanguage();
+  const tr = t.wanProtocols;
+
+  return (
+    <Section
+      id="wan-protocols"
+      number="46"
+      title="WAN Protocols (X.25, Frame Relay, ATM)"
+      titleEn="WAN Protocols (X.25, Frame Relay, ATM)"
+      onVisible={onVisible}
+    >
+      <p>{tr.intro[lang]}</p>
+
+      <hr />
+
+      <h2>{tr.x25.title}</h2>
+      <h3>{lang === "ar" ? "ليه اتعمل؟" : "Why was it created?"}</h3>
+      <p>{tr.x25.why[lang]}</p>
+      <Callout type="note">{tr.x25.hopByHop[lang]}</Callout>
+      <p>{tr.x25.impact[lang]}</p>
+
+      <hr />
+
+      <h2>{tr.frameRelay.title}</h2>
+      <h3>{lang === "ar" ? "ليه اتعمل؟" : "Why was it created?"}</h3>
+      <p>{tr.frameRelay.why[lang]}</p>
+      <p>{tr.frameRelay.traffic[lang]}</p>
+      <p>{tr.frameRelay.impact[lang]}</p>
+
+      <hr />
+
+      <h2>{tr.atm.title}</h2>
+      <h3>{lang === "ar" ? "ليه اتعمل؟" : "Why was it created?"}</h3>
+      <p>{tr.atm.why[lang]}</p>
+      <Callout type="tip">{tr.atm.cellSize[lang]}</Callout>
+
+      <hr />
+
+      <h2>{lang === "ar" ? "مقارنة تقنية" : "Technical Comparison"}</h2>
+      <Table
+        headers={tr.comparisonMatrix.headers[lang]}
+        rows={tr.comparisonMatrix.rows.map((row) =>
+          row.map((cell) => (typeof cell === "object" ? cell[lang] : cell))
+        )}
+      />
+    </Section>
+  );
+}

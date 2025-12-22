@@ -285,6 +285,31 @@ export const lectures = [
       },
     ],
   },
+  {
+    id: "lecture-8",
+    title: "Extra topics",
+    titleAr: "مواضيع إضافية",
+    sections: [
+      {
+        id: "vpn",
+        number: "44",
+        titleAr: "VPN | Virtual Private Network",
+        titleEn: "VPN | Virtual Private Network",
+      },
+      {
+        id: "ports",
+        number: "45",
+        titleAr: "🔌 Ports | Network Ports",
+        titleEn: "🔌 Ports | Network Ports",
+      },
+      {
+        id: "wan-protocols",
+        number: "46",
+        titleAr: "WAN Protocols (X.25, Frame Relay, ATM)",
+        titleEn: "WAN Protocols (X.25, Frame Relay, ATM)",
+      },
+    ],
+  },
 ];
 
 export const getLectureById = (lectureId) =>

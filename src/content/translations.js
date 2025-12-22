@@ -1643,6 +1643,482 @@ export const translations = {
     },
   },
 
+  // Section 44: VPN
+  vpn: {
+    intro: {
+      ar: "الـ VPN هو نفق آمن بيخلي اتصالك يمشي جوّه الإنترنت العام كأنه شبكة خاصة مقفولة.",
+      en: "VPN is a secure tunnel that makes your connection run inside the public internet as if it were a private closed network.",
+    },
+    bigPicture: {
+      title: { ar: "🧠 الفكرة العامة (Big Picture)", en: "🧠 The Big Picture" },
+      internet: {
+        title: { ar: "الإنترنت:", en: "Internet:" },
+        list: {
+          ar: ["Public", "مفتوح", "أي باكت ممكن تتشاف"],
+          en: ["Public", "Open", "Any packet can be seen"],
+        },
+      },
+      vpn: {
+        title: { ar: "VPN:", en: "VPN:" },
+        list: {
+          ar: [
+            "يعمل Tunnel",
+            "يشفر الداتا",
+            "يخلي الترافيك مخفي وآمن وواصل من نقطة لنقطة",
+          ],
+          en: [
+            "Creates a Tunnel",
+            "Encrypts data",
+            "Makes traffic hidden, secure, and point-to-point",
+          ],
+        },
+      },
+    },
+    whyUse: {
+      title: { ar: "❓ ليه نستخدم VPN؟", en: "❓ Why use VPN?" },
+      list: {
+        ar: [
+          "حماية الداتا (Security)",
+          "الخصوصية (Privacy)",
+          "الوصول لشبكة شركة من بره",
+          "تجاوز القيود الجغرافية",
+          "استخدام Wi-Fi عام بأمان",
+        ],
+        en: [
+          "Data protection (Security)",
+          "Privacy",
+          "Accessing company network from outside",
+          "Bypassing geographical restrictions",
+          "Using public Wi-Fi safely",
+        ],
+      },
+      summary: {
+        ar: "يعني: أمان + خصوصية + تحكم",
+        en: "Meaning: Security + Privacy + Control",
+      },
+    },
+    howWorks: {
+      title: { ar: "⚙️ إزاي VPN بيشتغل؟ (بالعقل)", en: "⚙️ How does VPN work?" },
+      steps: {
+        ar: [
+          "الجهاز يعمل اتصال بـ VPN Server",
+          "يحصل Authentication",
+          "يتعمل Tunnel",
+          "الداتا تتشفر وتتحط جوه Packet جديدة",
+          "الترافيك يعدي في الإنترنت",
+          "يفك التشفير عند الطرف التاني",
+        ],
+        en: [
+          "Device connects to VPN Server",
+          "Authentication occurs",
+          "Tunnel is created",
+          "Data is encrypted and placed inside a new Packet",
+          "Traffic passes through the internet",
+          "Decryption occurs at the other end",
+        ],
+      },
+      quote: {
+        ar: "أي حد في النص يشوف: Encrypted garbage 😄",
+        en: "Anyone in the middle sees: Encrypted garbage 😄",
+      },
+    },
+    components: {
+      title: { ar: "🧱 VPN Core Components", en: "🧱 VPN Core Components" },
+      headers: { ar: ["Component", "وظيفته"], en: ["Component", "Function"] },
+      rows: [
+        [
+          "Client",
+          {
+            ar: "الجهاز اللي طالب الاتصال",
+            en: "The device requesting connection",
+          },
+        ],
+        [
+          "VPN Server",
+          {
+            ar: "الطرف التاني اللي هيستقبل",
+            en: "The other end that will receive",
+          },
+        ],
+        ["Tunnel", { ar: "المسار الآمن", en: "The secure path" }],
+        ["Encryption", { ar: "تشفير الداتا", en: "Data encryption" }],
+        ["Authentication", { ar: "التحقق من الهوية", en: "Identity verification" }],
+        [
+          "Tunneling Protocol",
+          { ar: "إزاي الباكت تتحط جوه بعض", en: "How packets are encapsulated" },
+        ],
+      ],
+    },
+    authMethods: {
+      title: { ar: "🔑 Authentication Methods", en: "🔑 Authentication Methods" },
+      list: {
+        ar: [
+          "Username / Password",
+          "Certificates",
+          "Pre-shared Key",
+          "Multi-Factor Authentication",
+        ],
+        en: [
+          "Username / Password",
+          "Certificates",
+          "Pre-shared Key",
+          "Multi-Factor Authentication",
+        ],
+      },
+      goal: {
+        ar: "الهدف: مين انت؟ قبل ما تدخل",
+        en: "Goal: Who are you? Before you enter",
+      },
+    },
+    encryption: {
+      title: { ar: "🔐 Encryption", en: "🔐 Encryption" },
+      desc: {
+        ar: "يحمي Confidentiality ويمنع Sniffing و Man-in-the-middle.",
+        en: "Protects Confidentiality and prevents Sniffing and Man-in-the-middle.",
+      },
+      examples: ["AES", "RSA", "SHA (Integrity)"],
+    },
+    protocols: {
+      title: { ar: "🌐 Tunneling Protocols", en: "🌐 Tunneling Protocols" },
+      headers: { ar: ["Protocol", "ملاحظات"], en: ["Protocol", "Notes"] },
+      rows: [
+        ["PPTP", { ar: "قديم وضعيف", en: "Old and weak" }],
+        ["L2TP", { ar: "محتاج IPsec", en: "Needs IPsec" }],
+        ["IPsec", { ar: "قوي وشائع", en: "Strong and common" }],
+        [
+          "SSL / TLS",
+          { ar: "مستخدم في VPNs الحديثة", en: "Used in modern VPNs" },
+        ],
+        ["OpenVPN", { ar: "Flexible + Secure", en: "Flexible + Secure" }],
+      ],
+    },
+    types: {
+      title: { ar: "🧭 Types of VPN", en: "🧭 Types of VPN" },
+      remoteAccess: {
+        title: "Remote Access VPN",
+        list: {
+          ar: ["User → Company Network", "شائع في Work from home"],
+          en: ["User → Company Network", "Common in Work from home"],
+        },
+      },
+      siteToSite: {
+        title: "Site-to-Site VPN",
+        list: {
+          ar: ["Network → Network", "ربط فرعين شركة"],
+          en: ["Network → Network", "Connecting two company branches"],
+        },
+      },
+      clientToSite: {
+        title: "Client-to-Site VPN",
+        desc: { ar: "جهاز واحد → شبكة", en: "One device → Network" },
+      },
+    },
+    comparison: {
+      title: {
+        ar: "🧠 VPN vs Normal Connection",
+        en: "🧠 VPN vs Normal Connection",
+      },
+      normal: {
+        title: { ar: "Normal:", en: "Normal:" },
+        list: {
+          ar: ["IP حقيقي", "داتا مكشوفة"],
+          en: ["Real IP", "Exposed data"],
+        },
+      },
+      vpn: {
+        title: { ar: "VPN:", en: "VPN:" },
+        list: {
+          ar: ["IP متغير", "داتا مشفرة", "Tunnel آمن"],
+          en: ["Variable IP", "Encrypted data", "Secure tunnel"],
+        },
+      },
+    },
+    importantNotes: {
+      title: { ar: "⚠️ ملاحظات مهمة", en: "⚠️ Important Notes" },
+      list: {
+        ar: [
+          "VPN مش بيخليك Anonymous 100%",
+          "السرعة ممكن تقل",
+          "الأمان يعتمد على البروتوكول والإعدادات",
+        ],
+        en: [
+          "VPN doesn't make you 100% anonymous",
+          "Speed might decrease",
+          "Security depends on protocol and settings",
+        ],
+      },
+    },
+  },
+
+  // Section 45: Ports
+  ports: {
+    intro: {
+      ar: "الـ Port هو رقم بيحدد أنهي Service / Application جوّه الجهاز هيستقبل الباكت.",
+      en: "A Port is a number that determines which Service / Application inside the device will receive the packet.",
+    },
+    mentalImage: {
+      title: { ar: "🧠 الصورة الذهنية (قبل أي حاجة)", en: "🧠 Mental Image" },
+      ip: {
+        ar: "IP Address → يحدد مين الجهاز",
+        en: "IP Address → Identifies the device",
+      },
+      port: {
+        ar: "Port Number → يحدد مين البرنامج جوّه الجهاز",
+        en: "Port Number → Identifies the program inside the device",
+      },
+      analogy: {
+        ar: "يعني: IP = العمارة، Port = الشقة",
+        en: "Meaning: IP = Building, Port = Apartment",
+      },
+    },
+    whyImportant: {
+      title: { ar: "❓ ليه Ports مهمة؟", en: "❓ Why are Ports important?" },
+      desc: {
+        ar: "لأن جهاز واحد ممكن يشغل Web Server و Email و FTP و SSH كلهم على نفس الـ IP. لازم نعرف الباكت رايحة لمين بالظبط؟ والحل هو Port Number.",
+        en: "Because one device can run a Web Server, Email, FTP, and SSH all on the same IP. We must know exactly who the packet is going to, and the solution is the Port Number.",
+      },
+    },
+    howWorks: {
+      title: { ar: "⚙️ إزاي Ports بتشتغل؟", en: "⚙️ How do Ports work?" },
+      steps: {
+        ar: [
+          "Application تفتح Port",
+          "OS يعمل Bind بين Port و Application",
+          "Packet توصل (IP + Port)",
+          "OS يسلم الباكت للبرنامج الصح",
+        ],
+        en: [
+          "Application opens a Port",
+          "OS binds Port to Application",
+          "Packet arrives (IP + Port)",
+          "OS delivers packet to the correct program",
+        ],
+      },
+    },
+    inPacket: {
+      title: { ar: "📦 Port داخل الباكت", en: "📦 Port inside the Packet" },
+      desc: {
+        ar: "Ports موجودة في Transport Layer داخل TCP Header و UDP Header.",
+        en: "Ports are in the Transport Layer inside the TCP Header and UDP Header.",
+      },
+      headerContains: {
+        ar: "Transport Header يحتوي: Source Port و Destination Port",
+        en: "Transport Header contains: Source Port and Destination Port",
+      },
+    },
+    ranges: {
+      title: { ar: "🔢 Port Number Range", en: "🔢 Port Number Range" },
+      headers: {
+        ar: ["Range", "الاسم", "الاستخدام"],
+        en: ["Range", "Name", "Usage"],
+      },
+      rows: [
+        [
+          "0 – 1023",
+          { ar: "Well-known", en: "Well-known" },
+          { ar: "Services معروفة", en: "Known Services" },
+        ],
+        [
+          "1024 – 49151",
+          { ar: "Registered", en: "Registered" },
+          { ar: "Apps مسجلة", en: "Registered Apps" },
+        ],
+        [
+          "49152 – 65535",
+          { ar: "Dynamic / Ephemeral", en: "Dynamic / Ephemeral" },
+          { ar: "مؤقتة", en: "Temporary" },
+        ],
+      ],
+    },
+    wellKnown: {
+      title: {
+        ar: "🌍 Well-Known Ports (مهمة جدًا)",
+        en: "🌍 Well-Known Ports",
+      },
+      headers: {
+        ar: ["Port", "Protocol", "Service"],
+        en: ["Port", "Protocol", "Service"],
+      },
+      rows: [
+        ["20 / 21", "TCP", "FTP"],
+        ["22", "TCP", "SSH"],
+        ["23", "TCP", "Telnet"],
+        ["25", "TCP", "SMTP"],
+        ["53", "TCP / UDP", "DNS"],
+        ["80", "TCP", "HTTP"],
+        ["443", "TCP", "HTTPS"],
+        ["110", "TCP", "POP3"],
+        ["143", "TCP", "IMAP"],
+      ],
+    },
+    sourceVsDest: {
+      title: {
+        ar: "🔁 Source Port vs Destination Port",
+        en: "🔁 Source Port vs Destination Port",
+      },
+      dest: {
+        title: { ar: "Destination Port", en: "Destination Port" },
+        list: {
+          ar: ["ثابت", "معروف", "بيحدد الخدمة"],
+          en: ["Fixed", "Known", "Identifies the service"],
+        },
+      },
+      source: {
+        title: { ar: "Source Port", en: "Source Port" },
+        list: {
+          ar: ["Dynamic", "مؤقت", "يحدده OS"],
+          en: ["Dynamic", "Temporary", "Determined by OS"],
+        },
+      },
+      example: {
+        ar: "مثال: Browser (Source: 54321), Server (Dest: 80)",
+        en: "Example: Browser (Source: 54321), Server (Dest: 80)",
+      },
+    },
+    tcpVsUdp: {
+      title: { ar: "🔄 TCP vs UDP مع Ports", en: "🔄 TCP vs UDP with Ports" },
+      headers: { ar: ["Feature", "TCP", "UDP"], en: ["Feature", "TCP", "UDP"] },
+      rows: [
+        [{ ar: "الاتصال", en: "Connection" }, "Yes", "No"],
+        [{ ar: "الموثوقية", en: "Reliability" }, "High", "Low"],
+        [
+          { ar: "السرعة", en: "Speed" },
+          { ar: "أبطأ", en: "Slower" },
+          { ar: "أسرع", en: "Faster" },
+        ],
+        [{ ar: "الاستخدام", en: "Usage" }, "Web, Mail", "Streaming, DNS"],
+      ],
+    },
+    security: {
+      title: { ar: "🔥 Ports & Security", en: "🔥 Ports & Security" },
+      list: {
+        ar: [
+          "Firewall يفتح ويقفل Ports",
+          "Port Scanning يكتشف Services شغالة",
+          "Port مفتوح = Potential Attack Surface",
+        ],
+        en: [
+          "Firewall opens and closes Ports",
+          "Port Scanning discovers running services",
+          "Open Port = Potential Attack Surface",
+        ],
+      },
+      tip: {
+        ar: "عشان كده: اقفل اللي مش محتاجه",
+        en: "So: close what you don't need",
+      },
+    },
+    importantNotes: {
+      title: { ar: "⚠️ ملاحظات مهمة", en: "⚠️ Important Notes" },
+      list: {
+        ar: [
+          "Port لو مفتوح ≠ Service آمنة",
+          "Service ممكن تشتغل على Port مختلف",
+          "NAT يستخدم Ports لتمييز الاتصالات",
+        ],
+        en: [
+          "Open Port ≠ Secure Service",
+          "Service can run on a different Port",
+          "NAT uses Ports to distinguish connections",
+        ],
+      },
+    },
+  },
+
+  // Section 46: WAN Protocols
+  wanProtocols: {
+    intro: {
+      ar: "الثلاثة دول (X.25, Frame Relay, ATM) بيجاوبوا على سؤال واحد: أبعَت داتا إزاي عبر مسافة بعيدة وشبكة مش مضمونة؟",
+      en: "These three (X.25, Frame Relay, ATM) answer one question: how to send data over a long distance and an unreliable network?",
+    },
+    comparisonMatrix: {
+      headers: {
+        ar: ["Metric", "X.25", "Frame Relay", "ATM"],
+        en: ["Metric", "X.25", "Frame Relay", "ATM"],
+      },
+      rows: [
+        [
+          { ar: "نموذج الموثوقية", en: "Reliability Model" },
+          { ar: "الشبكة (Network-based)", en: "Network-based" },
+          { ar: "الأجهزة النهائية (End-based)", en: "End-based" },
+          { ar: "Network QoS", en: "Network QoS" },
+        ],
+        ["Switching Unit", "Packet", "Packet", "Cell (53B)"],
+        [
+          { ar: "استعادة الأخطاء", en: "Error Recovery" },
+          { ar: "كل Hop", en: "Every hop" },
+          { ar: "لا يوجد داخلياً", en: "None inside" },
+          { ar: "محدود", en: "Limited" },
+        ],
+        [
+          { ar: "التحكم في الازدحام", en: "Congestion Strategy" },
+          { ar: "تحكم كامل", en: "Control everywhere" },
+          { ar: "إشعار فقط", en: "Notify only" },
+          { ar: "Guaranteed QoS", en: "Guaranteed QoS" },
+        ],
+        [
+          { ar: "التأخير (Delay)", en: "Delay" },
+          { ar: "عالي جدًا", en: "Very high" },
+          { ar: "منخفض", en: "Low" },
+          { ar: "ثابت", en: "Constant" },
+        ],
+        [
+          { ar: "Jitter", en: "Jitter" },
+          { ar: "قليل", en: "Low" },
+          { ar: "متوسط", en: "Medium" },
+          { ar: "قليل جدًا", en: "Very low" },
+        ],
+        [
+          { ar: "التعقيد", en: "Complexity" },
+          { ar: "عالي", en: "High" },
+          { ar: "متوسط", en: "Medium" },
+          { ar: "عالي جدًا", en: "Very high" },
+        ],
+      ],
+    },
+    x25: {
+      title: "X.25 — Reliability on the expense of everything",
+      why: {
+        ar: "ليه اتعمل؟ زمان كانت الخطوط Analog والـ Noise عالي والـ Packet loss كتير. فكان لازم الشبكة نفسها تبقى أمّينة.",
+        en: "Why was it created? In the past, lines were Analog with high Noise and Packet loss. The network itself had to be reliable.",
+      },
+      hopByHop: {
+        ar: "Hop-by-hop ACK: يعني كل راوتر يقول للي قبله 'وصلت' قبل ما يبعت اللي بعدها.",
+        en: "Hop-by-hop ACK: Each router tells the previous one 'arrived' before sending the next.",
+      },
+      impact: {
+        ar: "النتيجة: Delay عالي، Throughput قليل.",
+        en: "Result: High Delay, Low Throughput.",
+      },
+    },
+    frameRelay: {
+      title: "Frame Relay — Trust the Network",
+      why: {
+        ar: "ليه اتعمل؟ الخطوط بقت Digital والـ Error rate أقل، فالناس كانت عايزة سرعة.",
+        en: "Why was it created? Lines became Digital with lower Error rate, so people wanted speed.",
+      },
+      traffic: {
+        ar: "لا يوجد إعادة إرسال داخل الشبكة. لو حصل زحمة، الشبكة تبعت إشعارات (FECN/BECN) والتصرف على الأجهزة (TCP).",
+        en: "No retransmission inside the network. If congestion occurs, the network sends notifications (FECN/BECN) and the handling is on the devices (TCP).",
+      },
+      impact: {
+        ar: "النتيجة: Delay أقل بكتير، بس ممكن يحصل Packet loss.",
+        en: "Result: Much lower Delay, but Packet loss is possible.",
+      },
+    },
+    atm: {
+      title: "ATM — Predictability is King",
+      why: {
+        ar: "ليه اتعمل؟ علشان الصوت والفيديو والداتا يمشوا مع بعض في Real-time بـ QoS حقيقي.",
+        en: "Why was it created? To allow voice, video, and data to run together in Real-time with real QoS.",
+      },
+      cellSize: {
+        ar: "حجم الخلية ثابت (53 bytes) علشان نضمن Delay متوقع و Jitter قليل.",
+        en: "Fixed cell size (53 bytes) to ensure predictable Delay and low Jitter.",
+      },
+    },
+  },
+
   // Common UI elements
   ui: {
     createdBy: { ar: "من إنشاء", en: "Created by" },

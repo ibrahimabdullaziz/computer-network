@@ -48,6 +48,9 @@ import {
   RIPDetailedSection,
   RIPSharingDecisionSection,
   ProtocolsSummarySection,
+  VPNSection,
+  PortsSection,
+  WANProtocolsSection,
 } from "./content/ContentSections";
 
 function AppContent() {
@@ -237,6 +240,15 @@ function AppContent() {
               <RIPDetailedSection onVisible={handleSectionVisible} />
               <RIPSharingDecisionSection onVisible={handleSectionVisible} />
               <ProtocolsSummarySection onVisible={handleSectionVisible} />
+            </>
+          )}
+
+          {/* Lecture 8 Content */}
+          {activeLecture === "lecture-8" && (
+            <>
+              <VPNSection onVisible={handleSectionVisible} />
+              <PortsSection onVisible={handleSectionVisible} />
+              <WANProtocolsSection onVisible={handleSectionVisible} />
             </>
           )}
         </div>
