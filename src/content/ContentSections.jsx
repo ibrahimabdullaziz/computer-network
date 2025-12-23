@@ -915,20 +915,20 @@ export function NetworkPerformanceMetricsSection({ onVisible }) {
     >
       <p>{lang === "ar" ? tr.intro.ar : tr.intro.en}</p>
 
+      <Callout type="note">
+        {lang === "ar" ? tr.bigPicture.ar : tr.bigPicture.en}
+      </Callout>
+
+      <h3>{lang === "ar" ? "المتطلبات الأساسية:" : "Core Requirements:"}</h3>
+      <ul>
+        {(lang === "ar" ? tr.needs.ar : tr.needs.en).map((need, i) => (
+          <li key={i}>{need}</li>
+        ))}
+      </ul>
+
       <Callout type="important">
         {lang === "ar" ? tr.qosIntro.ar : tr.qosIntro.en}
       </Callout>
-
-      <hr />
-      <h2>
-        {lang === "ar" ? "مقاييس الأداء الرئيسية" : "Main Performance Metrics"}
-      </h2>
-      <Table
-        headers={tr.metricsTable.headers[lang]}
-        rows={tr.metricsTable.rows.map((row) =>
-          lang === "ar" ? row : [row[0], row[2], row[3]]
-        )}
-      />
     </Section>
   );
 }
@@ -937,6 +937,40 @@ export function NetworkPerformanceMetricsSection({ onVisible }) {
 export function RoutingProblemsSection({ onVisible }) {
   const { language: lang } = useLanguage();
   const tr = t.routingProblems;
+
+  const Problem = ({ data }) => (
+    <div className="detail-item">
+      <h3>{lang === "ar" ? data.title.ar : data.title.en}</h3>
+      <div className="card-grid">
+        <div className="card">
+          <strong>{lang === "ar" ? "السبب:" : "Cause:"}</strong>
+          <p>{lang === "ar" ? data.causes.ar : data.causes.en}</p>
+        </div>
+        {data.analogy && (
+          <div className="card highlight">
+            <strong>{lang === "ar" ? "تشبيه:" : "Analogy:"}</strong>
+            <p>{lang === "ar" ? data.analogy.ar : data.analogy.en}</p>
+          </div>
+        )}
+      </div>
+      <p>
+        <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
+        {lang === "ar" ? data.impact.ar : data.impact.en}
+      </p>
+      {data.note && (
+        <Callout type="tip">
+          {lang === "ar" ? data.note.ar : data.note.en}
+        </Callout>
+      )}
+      {data.goal && (
+        <Callout type="important">
+          <strong>{lang === "ar" ? "الهدف:" : "Goal:"}</strong>{" "}
+          {lang === "ar" ? data.goal.ar : data.goal.en}
+        </Callout>
+      )}
+      <hr className="sub-hr" />
+    </div>
+  );
 
   return (
     <Section
@@ -948,167 +982,12 @@ export function RoutingProblemsSection({ onVisible }) {
     >
       <p>{lang === "ar" ? tr.intro.ar : tr.intro.en}</p>
 
-      <hr />
-      <h2>
-        {lang === "ar"
-          ? tr.droppedPackets.title.ar
-          : tr.droppedPackets.title.en}
-      </h2>
-      <Callout type="important">
-        {lang === "ar"
-          ? tr.droppedPackets.meaning.ar
-          : tr.droppedPackets.meaning.en}
-      </Callout>
-      <h4>
-        {lang === "ar"
-          ? tr.droppedPackets.causes.title.ar
-          : tr.droppedPackets.causes.title.en}
-      </h4>
-      <ul>
-        {tr.droppedPackets.causes.items[lang].map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-      </ul>
-      <h4>
-        {lang === "ar"
-          ? tr.droppedPackets.impact.title.ar
-          : tr.droppedPackets.impact.title.en}
-      </h4>
-      <ul>
-        {tr.droppedPackets.impact.items[lang].map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-      </ul>
-      <Callout type="warning">
-        {lang === "ar" ? tr.droppedPackets.note.ar : tr.droppedPackets.note.en}
-      </Callout>
-
-      <hr />
-      <h2>{lang === "ar" ? tr.delay.title.ar : tr.delay.title.en}</h2>
-      <Callout type="important">
-        {lang === "ar" ? tr.delay.meaning.ar : tr.delay.meaning.en}
-      </Callout>
-      <h4>
-        {lang === "ar" ? tr.delay.causes.title.ar : tr.delay.causes.title.en}
-      </h4>
-      <ul>
-        {tr.delay.causes.items[lang].map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-      </ul>
-      <p>
-        <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
-        {lang === "ar" ? tr.delay.impact.ar : tr.delay.impact.en}
-      </p>
-
-      <hr />
-      <h2>{lang === "ar" ? tr.jitter.title.ar : tr.jitter.title.en}</h2>
-      <Callout type="important">
-        {lang === "ar" ? tr.jitter.meaning.ar : tr.jitter.meaning.en}
-      </Callout>
-      <p>
-        <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
-        {lang === "ar" ? tr.jitter.impact.ar : tr.jitter.impact.en}
-      </p>
-      <Callout type="warning">
-        {lang === "ar" ? tr.jitter.note.ar : tr.jitter.note.en}
-      </Callout>
-
-      <hr />
-      <h2>{lang === "ar" ? tr.outOfOrder.title.ar : tr.outOfOrder.title.en}</h2>
-      <Callout type="important">
-        {lang === "ar" ? tr.outOfOrder.meaning.ar : tr.outOfOrder.meaning.en}
-      </Callout>
-      <h4>
-        {lang === "ar"
-          ? tr.outOfOrder.causes.title.ar
-          : tr.outOfOrder.causes.title.en}
-      </h4>
-      <ul>
-        {tr.outOfOrder.causes.items[lang].map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-      </ul>
-      <p>
-        <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
-        {lang === "ar" ? tr.outOfOrder.impact.ar : tr.outOfOrder.impact.en}
-      </p>
-      <Callout type="note">
-        {lang === "ar" ? tr.outOfOrder.note.ar : tr.outOfOrder.note.en}
-      </Callout>
-
-      <hr />
-      <h2>{lang === "ar" ? tr.errors.title.ar : tr.errors.title.en}</h2>
-      <Callout type="important">
-        {lang === "ar" ? tr.errors.meaning.ar : tr.errors.meaning.en}
-      </Callout>
-      <h4>
-        {lang === "ar" ? tr.errors.causes.title.ar : tr.errors.causes.title.en}
-      </h4>
-      <ul>
-        {tr.errors.causes.items[lang].map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-      </ul>
-      <p>
-        <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
-        {lang === "ar" ? tr.errors.impact.ar : tr.errors.impact.en}
-      </p>
-
-      <hr />
-      <h2>
-        {lang === "ar"
-          ? tr.faultTolerance.title.ar
-          : tr.faultTolerance.title.en}
-      </h2>
-      <h4>
-        {lang === "ar"
-          ? tr.faultTolerance.tolerance.title.ar
-          : tr.faultTolerance.tolerance.title.en}
-      </h4>
-      <p>
-        {lang === "ar"
-          ? tr.faultTolerance.tolerance.meaning.ar
-          : tr.faultTolerance.tolerance.meaning.en}
-      </p>
-
-      <h4>
-        {lang === "ar"
-          ? tr.faultTolerance.redundancy.title.ar
-          : tr.faultTolerance.redundancy.title.en}
-      </h4>
-      <p>
-        {lang === "ar"
-          ? tr.faultTolerance.redundancy.meaning.ar
-          : tr.faultTolerance.redundancy.meaning.en}
-      </p>
-
-      <div className="grid-2">
-        <div className="card">
-          <h4>
-            {lang === "ar"
-              ? tr.faultTolerance.withoutVs.without.title.ar
-              : tr.faultTolerance.withoutVs.without.title.en}
-          </h4>
-          <ul>
-            {tr.faultTolerance.withoutVs.without.items[lang].map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="card">
-          <h4>
-            {lang === "ar"
-              ? tr.faultTolerance.withoutVs.with.title.ar
-              : tr.faultTolerance.withoutVs.with.title.en}
-          </h4>
-          <ul>
-            {tr.faultTolerance.withoutVs.with.items[lang].map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <Problem data={tr.droppedPackets} />
+      <Problem data={tr.delay} />
+      <Problem data={tr.jitter} />
+      <Problem data={tr.outOfOrder} />
+      <Problem data={tr.errors} />
+      <Problem data={tr.faultTolerance} />
     </Section>
   );
 }
@@ -3369,6 +3248,33 @@ export function WANProtocolsSection({ onVisible }) {
   const { language: lang } = useLanguage();
   const tr = t.wanProtocols;
 
+  const ProtocolDetail = ({ data }) => (
+    <div className="detail-item">
+      <h3>{data.title}</h3>
+      <Callout type="note">
+        <strong>{lang === "ar" ? "الفترة الزمنية:" : "Timeline:"}</strong>{" "}
+        {lang === "ar" ? data.timeline.ar : data.timeline.en}
+      </Callout>
+      <p>
+        <strong>{lang === "ar" ? "السبب:" : "Why?"}</strong>{" "}
+        {lang === "ar" ? data.why.ar : data.why.en}
+      </p>
+      <p>
+        <strong>{lang === "ar" ? "كيف يعمل:" : "How it works:"}</strong>{" "}
+        {lang === "ar" ? data.how.ar : data.how.en}
+      </p>
+      <p>
+        <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
+        {lang === "ar" ? data.impact.ar : data.impact.en}
+      </p>
+      <div className="card highlight">
+        <strong>{lang === "ar" ? "تشبيه:" : "Analogy:"}</strong>
+        <p>{lang === "ar" ? data.analogy.ar : data.analogy.en}</p>
+      </div>
+      <hr className="sub-hr" />
+    </div>
+  );
+
   return (
     <Section
       id="wan-protocols"
@@ -3379,38 +3285,17 @@ export function WANProtocolsSection({ onVisible }) {
     >
       <p>{tr.intro[lang]}</p>
 
-      <hr />
-
-      <h2>{tr.x25.title}</h2>
-      <h3>{lang === "ar" ? "ليه اتعمل؟" : "Why was it created?"}</h3>
-      <p>{tr.x25.why[lang]}</p>
-      <Callout type="note">{tr.x25.hopByHop[lang]}</Callout>
-      <p>{tr.x25.impact[lang]}</p>
-
-      <hr />
-
-      <h2>{tr.frameRelay.title}</h2>
-      <h3>{lang === "ar" ? "ليه اتعمل؟" : "Why was it created?"}</h3>
-      <p>{tr.frameRelay.why[lang]}</p>
-      <p>{tr.frameRelay.traffic[lang]}</p>
-      <p>{tr.frameRelay.impact[lang]}</p>
-
-      <hr />
-
-      <h2>{tr.atm.title}</h2>
-      <h3>{lang === "ar" ? "ليه اتعمل؟" : "Why was it created?"}</h3>
-      <p>{tr.atm.why[lang]}</p>
-      <Callout type="tip">{tr.atm.cellSize[lang]}</Callout>
-
-      <hr />
-
-      <h2>{lang === "ar" ? "مقارنة تقنية" : "Technical Comparison"}</h2>
       <Table
         headers={tr.comparisonMatrix.headers[lang]}
         rows={tr.comparisonMatrix.rows.map((row) =>
-          row.map((cell) => (typeof cell === "object" ? cell[lang] : cell))
+          row.map((cell) => (typeof cell === "string" ? cell : cell[lang]))
         )}
       />
+
+      <hr />
+      <ProtocolDetail data={tr.x25} />
+      <ProtocolDetail data={tr.frameRelay} />
+      <ProtocolDetail data={tr.atm} />
     </Section>
   );
 }
@@ -3429,23 +3314,30 @@ export function NetworkMetricsDetailedSection({ onVisible }) {
     >
       <p>{tr.intro[lang]}</p>
 
-      <h2>{lang === "ar" ? "أنواع المقاييس (Metric Types)" : "Metric Types"}</h2>
-      
+      <Callout type="important">
+        <h3>{lang === "ar" ? tr.qos.title.ar : tr.qos.title.en}</h3>
+        <p>{lang === "ar" ? tr.qos.desc.ar : tr.qos.desc.en}</p>
+      </Callout>
+
+      <hr />
+
+      <h2>{lang === "ar" ? "قواعد حساب المقاييس" : "Metric Calculation Rules"}</h2>
+
       <div className="card-grid">
         <div className="card">
-          <h3>{tr.types.concave.title}</h3>
-          <p>{tr.types.concave.desc[lang]}</p>
-          <Callout type="tip">📌 {tr.types.concave.examples}</Callout>
+          <h3>{tr.rules.additive.title}</h3>
+          <CodeBlock language="text">{tr.rules.additive.formula}</CodeBlock>
+          <p>{tr.rules.additive.desc[lang]}</p>
         </div>
         <div className="card">
-          <h3>{tr.types.additive.title}</h3>
-          <p>{tr.types.additive.desc[lang]}</p>
-          <Callout type="tip">📌 {tr.types.additive.examples}</Callout>
+          <h3>{tr.rules.multiplicative.title}</h3>
+          <CodeBlock language="text">{tr.rules.multiplicative.formula}</CodeBlock>
+          <p>{tr.rules.multiplicative.desc[lang]}</p>
         </div>
         <div className="card">
-          <h3>{tr.types.multiplicative.title}</h3>
-          <p>{tr.types.multiplicative.desc[lang]}</p>
-          <Callout type="tip">📌 {tr.types.multiplicative.examples}</Callout>
+          <h3>{tr.rules.concave.title}</h3>
+          <CodeBlock language="text">{tr.rules.concave.formula}</CodeBlock>
+          <p>{tr.rules.concave.desc[lang]}</p>
         </div>
       </div>
 
@@ -3453,24 +3345,41 @@ export function NetworkMetricsDetailedSection({ onVisible }) {
 
       <h2>{lang === "ar" ? "شرح المقاييس بالتفصيل" : "Metrics in Detail"}</h2>
 
-      {tr.metricsDetail.map((metric) => (
-        <div key={metric.id} className="detail-item">
-          <h3>{metric.title}</h3>
-          <p>
-            <strong>{lang === "ar" ? "نوع الحساب: " : "Calculation Type: "}</strong>
-            <span className="term">{metric.type}</span>
-          </p>
-          <p>{metric[lang]}</p>
-          {metric.components && (
-            <ul>
-              {metric.components[lang].map((comp, i) => (
-                <li key={i}>{comp}</li>
-              ))}
-            </ul>
-          )}
-          <hr className="sub-hr" />
+      <div className="card-grid">
+        {tr.metricsDetail.map((metric) => (
+          <div key={metric.id} className="card">
+            <h4>{metric.title}</h4>
+            <p>{metric[lang]}</p>
+          </div>
+        ))}
+      </div>
+
+      <hr />
+
+      <h2>{lang === "ar" ? tr.pathComputation.title.ar : tr.pathComputation.title.en}</h2>
+      <div className="grid-2">
+        <div className="card">
+          <h3>{tr.pathComputation.hopByHop.title}</h3>
+          <p>{tr.pathComputation.hopByHop.desc[lang]}</p>
         </div>
-      ))}
+        <div className="card">
+          <h3>{tr.pathComputation.sourceRouting.title}</h3>
+          <p>{tr.pathComputation.sourceRouting.desc[lang]}</p>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>{lang === "ar" ? tr.finalSummary.title.ar : tr.finalSummary.title.en}</h2>
+      <Table
+        headers={tr.finalSummary.headers[lang]}
+        rows={tr.finalSummary.rows.map((row) => [
+          typeof row[0] === "string" ? row[0] : row[0][lang],
+          row[1],
+          row[2],
+          typeof row[3] === "string" ? row[3] : row[3][lang],
+        ])}
+      />
     </Section>
   );
 }

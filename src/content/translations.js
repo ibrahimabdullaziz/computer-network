@@ -1028,204 +1028,93 @@ export const translations = {
   // Section 17: Network Performance Metrics
   networkPerformanceMetrics: {
     intro: {
-      ar: 'زمان كنا بنقول: "الشبكة بطيئة وخلاص". إنما دلوقتي مع VoIP والفيديو والكلاود والجيمينج، بقينا محتاجين نقيس الأداء بالأرقام، مش بالإحساس.',
-      en: 'Before we would just say: "The network is slow". But now with VoIP, video, cloud, and gaming, we need to measure performance with numbers, not feelings.',
+      ar: "الإنترنت في الأصل شبكة Best-Effort، يعني الشبكة 'هتحاول' توصل الباكيت، بس من غير ضمان زمن، ترتيب، أو حتى وصول. زمان كانت الويب والايميل مش محتاجين سرعة لحظية، لكن دلوقتي الوضع اختلف.",
+      en: "The Internet is originally a Best-Effort network, meaning the network 'tries' to deliver the packet, but without guaranteeing time, order, or even arrival. In the past, web and email didn't need instant speed, but now the situation is different.",
+    },
+    bigPicture: {
+      ar: "زمان كان عادي لو الصفحة اتأخرت ثانية، لكن دلوقتي مع VoIP والـ Video والـ Gaming، الحاجات دي Real-time وحساسة جدًا للزمن.",
+      en: "In the past, it was okay if a page delayed for a second, but now with VoIP, Video, and Gaming, these things are Real-time and very time-sensitive.",
+    },
+    needs: {
+      ar: ["Delay قليل عشان الصوت ميعملش echo", "Jitter قليل عشان مفيش تقطيع", "Reliability عالية عشان مفيش drops"],
+      en: ["Low Delay so voice doesn't echo", "Low Jitter for no interruptions", "High Reliability for no drops"],
     },
     qosIntro: {
-      ar: "هنا ظهر مفهوم: QoS – Quality of Service. يعني: قد إيه الشبكة قادرة تقدّم خدمة كويسة في الوقت الحقيقي. Response بقى لحظي مش مستني.",
-      en: "This led to the concept of QoS – Quality of Service. It means: How well can the network provide good service in real-time. Response is now instant, not delayed.",
-    },
-    metricsTable: {
-      headers: {
-        ar: ["المقياس", "المعنى", "التأثير الرئيسي"],
-        en: ["Metric", "Meaning", "Main Impact"],
-      },
-      rows: [
-        ["Dropped Packets", "خسارة الحزم", "تقطيع المكالمات، بيانات ناقصة"],
-        ["Delay (Latency)", "وقت السفر", "Lag، استجابة بطيئة"],
-        ["Jitter", "تغير التأخير", "صوت متقطع، فيديو غير ثابت"],
-        ["Out-of-Order", "ترتيب خاطئ", "تأخير إضافي"],
-        ["Errors", "تحريف البيانات", "إعادة إرسال"],
-        ["Redundancy", "نسخ احتياطية", "استمرارية الخدمة"],
-      ],
+      ar: "هنا ظهر مفهوم QoS – Quality of Service: إن الشبكة تتعامل بذكاء مع أنواع الترافيك المختلفة (Voice ≠ Email).",
+      en: "This led to the concept of QoS – Quality of Service: The network handles different traffic types intelligently (Voice ≠ Email).",
     },
   },
 
   // Section 18: Routing Problems
   routingProblems: {
     intro: {
-      ar: "وأنت بتبعت Packet من جهازك لهدفه - جوه شبكة خاصة أو عبر الإنترنت - الـ Packet دي بتعدّي على Routers وSwitches وLinks. وفي السكة دي ممكن يحصل مشاكل تأثر على جودة الاتصال.",
-      en: "When you send a Packet from your device to its destination - whether within a private network or over the Internet - the Packet passes through Routers, Switches, and Links. Along the way, problems can occur that affect connection quality.",
+      ar: "دي المشاكل الـ 6 الأساسية اللي أي شبكة لازم تتعامل معاها عشان تضمن جودة الخدمة:",
+      en: "These are the 6 basic problems any network must handle to ensure quality of service:",
     },
     droppedPackets: {
-      title: { ar: "فقدان الحزم", en: "Dropped Packets" },
-      meaning: {
-        ar: "Packets اتبعتت لكن موصلتش للـ destination",
-        en: "Packets are sent but do not reach the destination",
-      },
+      title: { ar: "1️⃣ Dropped Packets (فقدان الحزم)", en: "1️⃣ Dropped Packets" },
       causes: {
-        title: { ar: "الأسباب", en: "Causes" },
-        items: {
-          ar: [
-            "الشبكة زحمة والراوتر يرمي الحزم",
-            "Router أو Switch واقع",
-            "الحزمة بايظة",
-            "تشويش واي فاي",
-            "الحزمة لفّت كتير واترمت",
-          ],
-          en: [
-            "Network congestion - router drops packets",
-            "Device failures (Router or Switch)",
-            "Corrupted data",
-            "Wireless interference",
-            "Packet went too long (TTL expired)",
-          ],
-        },
+        ar: "Buffer الراوتر مليان أو فيه Congestion (زحمة).",
+        en: "Router Buffer full or Congestion occurs.",
       },
+      analogy: { ar: "تشبيه: أوتوبيس مليان، أي حد جديد يُرفض.", en: "Analogy: A full bus; any new passenger is rejected." },
       impact: {
-        title: { ar: "التأثير", en: "Impact" },
-        items: {
-          ar: ["بطء نقل البيانات", "تقطيع المكالمات", "Downloads ناقصة"],
-          en: [
-            "Slower data transfer",
-            "Call cutoffs (VoIP)",
-            "Incomplete downloads",
-          ],
-        },
-      },
-      note: {
-        ar: "أي real-time application بيتأذى جامد من خسارة الحزم",
-        en: "Any real-time application suffers greatly from packet loss",
+        ar: "TCP بيضطر يعيد الإرسال، وده بيزوّد الـ Delay ويقلل الـ Throughput.",
+        en: "TCP must retransmit, which increases Delay and decreases Throughput.",
       },
     },
     delay: {
-      title: { ar: "التأخير (Latency)", en: "Delay (Latency)" },
-      meaning: {
-        ar: "الوقت اللي Packet تاخده من المرسل للمستقبل",
-        en: "The time it takes a Packet to travel from sender to receiver",
-      },
+      title: { ar: "2️⃣ Delay (التأخير)", en: "2️⃣ Delay" },
       causes: {
-        title: { ar: "الأسباب", en: "Causes" },
-        items: {
-          ar: [
-            "مسافات طويلة بين الأجهزة",
-            "وقت معالجة الراوتر",
-            "ضغط عالي على الشبكة",
-            "Firewalls و Deep inspection",
-          ],
-          en: [
-            "Long distances between devices",
-            "Router processing time",
-            "High network load",
-            "Firewalls and Deep inspection",
-          ],
-        },
+        ar: "الزحمة (Congestion)، المسارات الطويلة، أو وقت الانتظار في الـ Queue.",
+        en: "Congestion, long paths, or waiting time in the Queue.",
       },
+      note: { ar: "ملحوظة: مش بس المسافة، ممكن مسار قصير بس زحمة يكون أبطأ.", en: "Note: It's not just distance; a short but congested path can be slower." },
       impact: {
-        ar: "Lag في الجيمينج، Applications بطيئة، تأخير الصوت في المكالمات",
-        en: "Gaming lag, slow applications, audio delay in calls",
+        ar: "بياثر على سرعة استجابة التطبيقات وخصوصًا الـ Real-time.",
+        en: "Affects application responsiveness, especially for Real-time apps.",
       },
     },
     jitter: {
-      title: { ar: "التذبذب (Jitter)", en: "Jitter" },
+      title: { ar: "3️⃣ Jitter (تذبذب التأخير)", en: "3️⃣ Jitter" },
       meaning: {
-        ar: "ليس التأخير نفسه، لكن اختلاف وقت وصول الحزم - Packet توصل بعد 10ms واللي بعدها بعد 80ms واللي بعدها بعد 20ms",
-        en: "Not the delay itself, but variation in packet arrival times - one arrives after 10ms, the next after 80ms, the next after 20ms",
+        ar: "اختلاف زمن وصول الباكيتات (واحد 50ms والتاني 90ms).",
+        en: "Variation in packet arrival times (e.g., one 50ms, another 90ms).",
       },
       impact: {
-        ar: "صوت متقطع، فيديو مش ثابت، مشاكل في مؤتمرات الفيديو",
-        en: "Choppy audio, unstable video, video conferencing issues",
-      },
-      note: {
-        ar: "Jitter أخطر من Delay في الصوت والفيديو",
-        en: "Jitter is more dangerous than Delay for audio and video",
+        ar: "بيخلي الصوت يقطع (أ-لو... سسسلام) والفيديو يهنّج.",
+        en: "Causes choppy audio and frozen video.",
       },
     },
     outOfOrder: {
-      title: { ar: "التسليم بترتيب خاطئ", en: "Out-of-Order Delivery" },
-      meaning: {
-        ar: "Packets اتبعتت بترتيب وصلت ملخبط",
-        en: "Packets are sent in order but arrive out of sequence",
-      },
+      title: { ar: "4️⃣ Out-of-Order Delivery (ترتيب ملخبط)", en: "4️⃣ Out-of-Order Delivery" },
       causes: {
-        title: { ar: "الأسباب", en: "Causes" },
-        items: {
-          ar: ["كل Packet ماشي في طريق مختلف", "Retransmissions", "Links زحمة"],
-          en: ["Multi-path routing", "Retransmissions", "Congested links"],
-        },
+        ar: "الـ Load balancing أو وجود أكتر من مسار لنفس الوجهة.",
+        en: "Load balancing or multiple paths to the same destination.",
       },
       impact: {
-        ar: "المستقبل يعيد ترتيب الحزم - يزوّد Delay، مشاكل في real-time apps",
-        en: "Receiver must reorder packets - increases delay, problems in real-time apps",
-      },
-      note: {
-        ar: "TCP يحلها، UDP يعاني",
-        en: "TCP handles it, UDP suffers",
+        ar: "مشكلة كبيرة لبروتوكولات الـ Video streams والـ TCP اللي بيضطر يرتبهم تاني.",
+        en: "Major issue for Video streams and TCP, which must reorder them.",
       },
     },
     errors: {
-      title: { ar: "أخطاء البيانات", en: "Data Errors" },
-      meaning: {
-        ar: "Bits اتغيرت أثناء النقل",
-        en: "Bits get corrupted during transmission",
-      },
+      title: { ar: "5️⃣ Errors (أخطاء البيانات)", en: "5️⃣ Errors" },
       causes: {
-        title: { ar: "الأسباب", en: "Causes" },
-        items: {
-          ar: [
-            "تشويش كهربائي",
-            "إشارة واي فاي ضعيفة",
-            "كابلات بايظة",
-            "مشاكل في Physical layer",
-          ],
-          en: [
-            "Electrical noise",
-            "Weak wireless signal",
-            "Bad cables",
-            "Physical layer issues",
-          ],
-        },
+        ar: "الـ Noise أو الـ Bad links بتخلي الباكيت Corrupted.",
+        en: "Noise or Bad links cause corrupted packets.",
       },
       impact: {
-        ar: "إعادة إرسال الحزم، فقدان سلامة البيانات، Throughput أقل",
-        en: "Packet retransmission, data integrity loss, lower throughput",
+        ar: "الباكت بتترمي (Drop) أو يُعاد إرسالها، وده بيضعف الأداء.",
+        en: "Packets are dropped or retransmitted, weakening performance.",
       },
     },
     faultTolerance: {
-      title: {
-        ar: "تحمل الأخطاء والتكرار",
-        en: "Fault Tolerance & Redundancy",
+      title: { ar: "6️⃣ Fault Tolerance & Redundancy", en: "6️⃣ Fault Tolerance & Redundancy" },
+      goal: {
+        ar: "لو لينك وقع، الخدمة تكمّل عن طريق مسارات بديلة.",
+        en: "If a link fails, the service continues via alternative paths.",
       },
-      tolerance: {
-        title: { ar: "تحمل الأخطاء", en: "Fault Tolerance" },
-        meaning: {
-          ar: "النظام يكمّل شغل حتى لو جزء وقع",
-          en: "The system continues working even if a part fails",
-        },
-      },
-      redundancy: {
-        title: { ar: "التكرار", en: "Redundancy" },
-        meaning: {
-          ar: "عندك بديل جاهز - Backup routers، Multiple links، HSRP / VRRP",
-          en: "You have a ready backup - Backup routers, Multiple links, HSRP / VRRP",
-        },
-      },
-      withoutVs: {
-        without: {
-          title: { ar: "بدون Redundancy", en: "Without Redundancy" },
-          items: {
-            ar: ["Single point of failure", "أي عطل = الشبكة تقع"],
-            en: ["Single point of failure", "Any failure = Network down"],
-          },
-        },
-        with: {
-          title: { ar: "مع Redundancy", en: "With Redundancy" },
-          items: {
-            ar: ["الخدمة مستمرة", "Load balancing", "Recovery أسرع"],
-            en: ["Service continues", "Load balancing", "Faster recovery"],
-          },
-        },
-      },
+      note: { ar: "ده هو روح الإنترنت والـ MPLS والـ Modern routing.", en: "This is the essence of the Internet, MPLS, and modern routing." },
     },
   },
 
@@ -2028,8 +1917,8 @@ export const translations = {
   // Section 46: WAN Protocols
   wanProtocols: {
     intro: {
-      ar: "الثلاثة دول (X.25, Frame Relay, ATM) بيجاوبوا على سؤال واحد: أبعَت داتا إزاي عبر مسافة بعيدة وشبكة مش مضمونة؟",
-      en: "These three (X.25, Frame Relay, ATM) answer one question: how to send data over a long distance and an unreliable network?",
+      ar: "الثلاثة دول (X.25, Frame Relay, ATM) بيجاوبوا على سؤال واحد: أبعَت داتا إزاي عبر مسافة بعيدة وشبكة مش مضمونة؟ كل واحدة فيهم كانت رد فعل لمشاكل اللي قبلها.",
+      en: "These three (X.25, Frame Relay, ATM) answer one question: how to send data over a long distance and an unreliable network? Each was a reaction to the problems of its predecessor.",
     },
     comparisonMatrix: {
       headers: {
@@ -2043,24 +1932,24 @@ export const translations = {
           { ar: "الأجهزة النهائية (End-based)", en: "End-based" },
           { ar: "Network QoS", en: "Network QoS" },
         ],
-        ["Switching Unit", "Packet", "Packet", "Cell (53B)"],
+        ["Switching Unit", "Packet (variable)", "Frame (variable)", "Cell (53B)"],
         [
           { ar: "استعادة الأخطاء", en: "Error Recovery" },
-          { ar: "كل Hop", en: "Every hop" },
-          { ar: "لا يوجد داخلياً", en: "None inside" },
-          { ar: "محدود", en: "Limited" },
+          { ar: "كل Hop (Detection + ACK)", en: "Every hop (Detection + ACK)" },
+          { ar: "لا يوجد داخلياً (End devices)", en: "None inside (End devices)" },
+          { ar: "محدود (Minimal)", en: "Limited (Minimal)" },
         ],
         [
           { ar: "التحكم في الازدحام", en: "Congestion Strategy" },
-          { ar: "تحكم كامل", en: "Control everywhere" },
-          { ar: "إشعار فقط", en: "Notify only" },
+          { ar: "تحكم كامل", en: "Full control" },
+          { ar: "إشعار فقط (FECN/BECN)", en: "Notification only (FECN/BECN)" },
           { ar: "Guaranteed QoS", en: "Guaranteed QoS" },
         ],
         [
           { ar: "التأخير (Delay)", en: "Delay" },
-          { ar: "عالي جدًا", en: "Very high" },
+          { ar: "عالي جدًا (Overhead)", en: "Very high (Overhead)" },
           { ar: "منخفض", en: "Low" },
-          { ar: "ثابت", en: "Constant" },
+          { ar: "ثابت (Predictable)", en: "Constant (Predictable)" },
         ],
         [
           { ar: "Jitter", en: "Jitter" },
@@ -2068,165 +1957,127 @@ export const translations = {
           { ar: "متوسط", en: "Medium" },
           { ar: "قليل جدًا", en: "Very low" },
         ],
-        [
-          { ar: "التعقيد", en: "Complexity" },
-          { ar: "عالي", en: "High" },
-          { ar: "متوسط", en: "Medium" },
-          { ar: "عالي جدًا", en: "Very high" },
-        ],
       ],
     },
     x25: {
-      title: "X.25 — Reliability on the expense of everything",
+      title: "1️⃣ X.25 — لما الشبكة نفسها كانت المشكلة",
+      timeline: { ar: "السبعينات - خطوط Analog و Noise عالي", en: "1970s - Analog lines and high Noise" },
       why: {
-        ar: "ليه اتعمل؟ زمان كانت الخطوط Analog والـ Noise عالي والـ Packet loss كتير. فكان لازم الشبكة نفسها تبقى أمّينة.",
-        en: "Why was it created? In the past, lines were Analog with high Noise and Packet loss. The network itself had to be reliable.",
+        ar: "كان السؤال: أسيب الغلط للأجهزة؟ ولا الشبكة تصلّحه؟ القرار كان إن الشبكة تصلّح كل حاجة بنفسها.",
+        en: "The question was: Leave errors to devices or let the network fix them? The decision: The network fixes everything itself.",
       },
-      hopByHop: {
-        ar: "Hop-by-hop ACK: يعني كل راوتر يقول للي قبله 'وصلت' قبل ما يبعت اللي بعدها.",
-        en: "Hop-by-hop ACK: Each router tells the previous one 'arrived' before sending the next.",
+      how: {
+        ar: "بيستخدم Virtual Circuits، وكل Hop بيعمل Error detection و ACK و Retransmission. يعني الرواتر بيقف يتأكد عند كل خطوة.",
+        en: "Uses Virtual Circuits; every Hop performs Error detection, ACK, and Retransmission. Routers stop and verify at every step.",
       },
       impact: {
-        ar: "النتيجة: Delay عالي، Throughput قليل.",
-        en: "Result: High Delay, Low Throughput.",
+        ar: "النتيجة: Reliability عالية جدًا بس Delay قاتل و Throughput ضعيف.",
+        en: "Result: Very high reliability but killer Delay and weak Throughput.",
       },
+      analogy: { ar: "تشبيه: موكب رسمي، كل 10 متر تفتيش وتوقيع.", en: "Analogy: An official motorcade, inspection and signing every 10 meters." },
     },
     frameRelay: {
-      title: "Frame Relay — Trust the Network",
+      title: "2️⃣ Frame Relay — سيب الشبكة في حالها",
+      timeline: { ar: "التمانينات - ظهور الخطوط الرقمية (Digital)", en: "1980s - Emergence of Digital lines" },
       why: {
-        ar: "ليه اتعمل؟ الخطوط بقت Digital والـ Error rate أقل، فالناس كانت عايزة سرعة.",
-        en: "Why was it created? Lines became Digital with lower Error rate, so people wanted speed.",
+        ar: "ليه أعمل error checking جوه الشبكة وهي أصلًا مش محتاجة؟ الخطوط بقت أنضف والـ Error rate قل.",
+        en: "Why perform error checking inside the network when it's not needed? Lines became cleaner and Error rate decreased.",
       },
-      traffic: {
-        ar: "لا يوجد إعادة إرسال داخل الشبكة. لو حصل زحمة، الشبكة تبعت إشعارات (FECN/BECN) والتصرف على الأجهزة (TCP).",
-        en: "No retransmission inside the network. If congestion occurs, the network sends notifications (FECN/BECN) and the handling is on the devices (TCP).",
+      how: {
+        ar: "مفيش ACK جوه الشبكة. لو حصل زحمة، بيبعت إشارات تحذير بس (FECN/BECN). المسؤولية بقت على الـ End devices.",
+        en: "No ACKs inside the network. If congestion occurs, it only sends warning signals (FECN/BECN). Responsibility moved to End devices.",
       },
       impact: {
-        ar: "النتيجة: Delay أقل بكتير، بس ممكن يحصل Packet loss.",
-        en: "Result: Much lower Delay, but Packet loss is possible.",
+        ar: "النتيجة: Delay أقل بكتير و Throughput أعلى، بس Reliability أقل (بس كفاية لشبكات نضيفة).",
+        en: "Result: Much lower Delay and higher Throughput, but lower reliability (sufficient for clean networks).",
       },
+      analogy: { ar: "تشبيه: طريق سريع مفيش فيه كمائن، لو زحمة الشبكة بتقولك بس.", en: "Analogy: A highway with no checkpoints; if it's crowded, the network just notifies you." },
     },
     atm: {
-      title: "ATM — Predictability is King",
+      title: "3️⃣ ATM — التحكم في الزمن هو الهدف",
+      timeline: { ar: "التسعينات - ظهور VoIP والفيديو والملتيميديا", en: "1990s - Emergence of VoIP, Video, and Multimedia" },
       why: {
-        ar: "ليه اتعمل؟ علشان الصوت والفيديو والداتا يمشوا مع بعض في Real-time بـ QoS حقيقي.",
-        en: "Why was it created? To allow voice, video, and data to run together in Real-time with real QoS.",
+        ar: "المشكلة مبقتش بس الداتا توصل، المهم توصل في وقت محدد وبثبات (Real-time).",
+        en: "The problem was no longer just data arriving, but it arriving at a specific time and with stability (Real-time).",
       },
-      cellSize: {
-        ar: "حجم الخلية ثابت (53 bytes) علشان نضمن Delay متوقع و Jitter قليل.",
-        en: "Fixed cell size (53 bytes) to ensure predictable Delay and low Jitter.",
+      how: {
+        ar: "بيستخدم Cell switching بخلية ثابتة (53 Byte) علشان نضمن زمن متوقع ونقلل الـ Jitter. فيه QoS مدمج (CBR, VBR, ABR, UBR).",
+        en: "Uses Cell switching with a fixed cell size (53 Bytes) to ensure predictable timing and reduce Jitter. Includes built-in QoS (CBR, VBR, ABR, UBR).",
       },
+      impact: {
+        ar: "النتيجة: أداء ممتاز للصوت والفيديو، بس غالي ومعقّد (Overkill لبعض الحالات).",
+        en: "Result: Excellent performance for voice and video, but expensive and complex (Overkill for some cases).",
+      },
+      analogy: { ar: "تشبيه: مصنع آلي، كل حاجة بتمشي بالثانية.", en: "Analogy: An automated factory, everything moves by the second." },
     },
   },
 
   // Section 47: Detailed Metrics
   networkMetricsDetailed: {
     intro: {
-      ar: "أي مسار في الشبكة (Network Path) هو مجموعة وصلات (Links) ورا بعض. السؤال دايمًا: المسار ده هيبقى كويس ولا وحش؟ الإجابة بتيجي من المقاييس (Metrics) بس كل Metric ليه طريقة حساب مختلفة.",
-      en: "Any network path is a series of links. The question is always: will this path be good or bad? The answer comes from Metrics, but each Metric is calculated differently.",
+      ar: "الراوتر مش بيختار مسار عشوائي، بيستخدم Metrics عشان يحدّد أحسن طريق. والقواعد هنا بتعتمد على نوع المقياس نفسه.",
+      en: "The router doesn't choose a path randomly; it uses Metrics to determine the best path. The rules depend on the type of metric itself.",
     },
-    types: {
-      concave: {
-        title: "➗ Concave Metrics",
-        desc: {
-          ar: "القيمة النهائية = الحد الأدنى لكل الوصلات في المسار. يعني المسار كله يتأثر بأضعف وصلة.",
-          en: "Final value = minimum of all links in the path. The entire path is affected by the weakest link.",
-        },
-        examples: "Bandwidth, MTU",
+    qos: {
+      title: { ar: "Quality of Service (QoS)", en: "Quality of Service (QoS)" },
+      desc: {
+        ar: "QoS يعني إن الشبكة تتعامل بذكاء مع أنواع البيانات المختلفة. (صوت ≠ إيميلات). الهدف تقليل الـ Delay والـ Jitter والـ Loss وضمان الـ Reliability.",
+        en: "QoS means the network handles different data types intelligently (Voice ≠ Email). The goal is to reduce Delay, Jitter, Loss, and ensure Reliability.",
       },
+    },
+    rules: {
       additive: {
-        title: "➕ Additive Metrics",
-        desc: {
-          ar: "نجمع كل الوصلات في المسار. كل ما المسار أطول أو أكثر وصلات → القيمة تزيد.",
-          en: "We sum all links in the path. The longer the path or the more links → the value increases.",
-        },
-        examples: "Delay, Cost, Hop Count",
+        title: "1️⃣ Additive Metrics (الجمع)",
+        formula: "m(path) = Σ m(linki)",
+        desc: { ar: "بنجمع كل القيم لأن كل وصلة بتضيف حمل جديد. أمثلة: Delay, Hop Count, Cost.", en: "We sum all values because each link adds a new load. Examples: Delay, Hop Count, Cost." },
       },
       multiplicative: {
-        title: "🔀 Multiplicative Metrics",
-        desc: {
-          ar: "نضرب قيم الوصلات ببعض. يستخدم لتقييم احتمالات فقدان الحزم أو الموثوقية.",
-          en: "We multiply link values together. Used to evaluate packet loss probabilities or reliability.",
-        },
-        examples: "Reliability (Probability)",
+        title: "2️⃣ Multiplicative Metrics (الضرب)",
+        formula: "m(path) = Π m(linki)",
+        desc: { ar: "بنضرب الاحتمالات لأن الأخطاء بتتراكم احتماليًا. أمثلة: Reliability, BER.", en: "We multiply probabilities because errors accumulate probabilistically. Examples: Reliability, BER." },
+      },
+      concave: {
+        title: "3️⃣ Concave Metrics (الأدنى)",
+        formula: "m(path) = min m(linki)",
+        desc: { ar: "أضعف وصلة هي اللي بتحكم المسار كله. أمثلة: Bandwidth, Throughput, MTU.", en: "The weakest link governs the entire path. Examples: Bandwidth, Throughput, MTU." },
       },
     },
     metricsDetail: [
-      {
-        id: "delay",
-        title: "1️⃣ Delay (التأخير)",
-        type: "Additive",
-        ar: "الباكت بتتأخر قد إيه من أولها لآخرها. الباكت لازم تعدي على كل الوصلات، فالتأخير بيتجمع.",
-        en: "How long the packet takes from start to end. The packet must pass through all links, so delay is additive.",
-        components: {
-          ar: ["وقت الإرسال (Transmission)", "وقت السفر (Propagation)", "وقت المعالجة (Processing)", "وقت الزحمة (Queuing)"],
-          en: ["Transmission Delay", "Propagation Delay", "Processing Delay", "Queuing Delay"],
-        },
-      },
-      {
-        id: "jitter",
-        title: "2️⃣ Jitter (تذبذب التأخير)",
-        type: "Additive",
-        ar: "مش التأخير نفسه، لكن تغيّره. التذبذب بيتراكم، ومهم جدًا لتطبيقات الصوت والفيديو.",
-        en: "Not the delay itself, but its variation. Variation accumulates, and it is crucial for voice and video applications.",
-      },
-      {
-        id: "bandwidth",
-        title: "3️⃣ Bandwidth (عرض النطاق)",
-        type: "Concave",
-        ar: "أقصى سعة الطريق. المسار كله يتأثر بأضعف وصلة (Bottleneck).",
-        en: "Maximum path capacity. The entire path is limited by the weakest link (Bottleneck).",
-      },
-      {
-        id: "connectivity",
-        title: "4️⃣ Connection Possibility",
-        type: "Concave",
-        ar: "ينفع الباكت تعدي ولا لأ؟ لو فيه وصلة واحدة بنسبة 0% يبقى المسار مات.",
-        en: "Can the packet pass or not? If one link is 0%, the entire path is dead.",
-      },
-      {
-        id: "ber",
-        title: "5️⃣ Bit Error Ratio (BER)",
-        type: "Multiplicative",
-        ar: "نسبة الغلط في البتات. احتمالات الخطأ بتضرب في بعضها وتتراكم.",
-        en: "Bit Error Ratio. Error probabilities multiply and accumulate.",
-      },
-      {
-        id: "throughput",
-        title: "6️⃣ Throughput (معدل النقل الفعلي)",
-        type: "Concave",
-        ar: "اللي بيعدي بجد مش نظري. زي الـ Bandwidth، بيتأثر بأبطأ حتة.",
-        en: "What actually passes, not theoretical. Like Bandwidth, it's affected by the slowest part.",
-      },
-      {
-        id: "hopCount",
-        title: "7️⃣ Hop Count",
-        type: "Additive",
-        ar: "عدد القفزات (الراوترات). كل خطوة بتزود 1.",
-        en: "Number of hops (routers). Each step adds 1.",
-      },
-      {
-        id: "security",
-        title: "8️⃣ Security",
-        type: "Concave",
-        ar: "أمان المسار. لو حتة واحدة غير مشفرة أو غير آمنة، يبقى المسار كله غير آمن.",
-        en: "Path security. If one part is unencrypted or insecure, the entire path is insecure.",
-      },
-      {
-        id: "billing",
-        title: "9️⃣ Billing (التكلفة)",
-        type: "Additive",
-        ar: "التكلفة المادية لكل وصلة بتتجمع مع بعض.",
-        en: "The financial cost of each link is added together.",
-      },
-      {
-        id: "mtu",
-        title: "🔟 MTU",
-        type: "Concave",
-        ar: "أكبر حجم باكت مسموح. أصغر MTU في المسار هو اللي بيحكم الكل.",
-        en: "Maximum Transmission Unit. The smallest MTU in the path governs the whole path.",
-      },
+      { id: "delay", title: "Delay (Additive)", ar: "التأخير الكلي = وقت المعالجة + وقت الانتظار + وقت الإرسال + وقت السفر.", en: "Total Delay = Processing + Queueing + Transmission + Propagation." },
+      { id: "jitter", title: "Jitter (Additive)", ar: "هو الفرق بين أقصى وأقل زمن وصول. Jitter عالي = كارثة للصوت والفيديو.", en: "The difference between Max and Min latency. High Jitter = Disaster for voice and video." },
+      { id: "bandwidth", title: "Bandwidth (Concave)", ar: "مش أسرع لينك، أضعف لينك في المسار هو اللي بيحدّد السرعة.", en: "Not the fastest link; the weakest link in the path determines the speed." },
+      { id: "throughput", title: "Throughput (Concave)", ar: "عدد البيانات اللي وصلت فعليًا بنجاح في وحدة زمن.", en: "The amount of data successfully delivered in a unit of time." },
+      { id: "ber", title: "BER (Multiplicative)", ar: "نسبة الأخطاء في البتات؛ الخطأ بيتراكم احتماليًا عبر المسار.", en: "Bit Error Rate; errors accumulate probabilistically across the path." },
+      { id: "hopCount", title: "Hop Count (Additive)", ar: "عدد القفزات (الراوترات)؛ سهل بس ساذج مش دايمًا دقيق.", en: "Number of hops (routers); simple but naive, not always accurate." },
+      { id: "security", title: "Security (Concave)", ar: "وصلة واحدة غير آمنة = المسار كله غير آمن.", en: "One insecure link = the entire path is insecure." },
+      { id: "mtu", title: "MTU (Concave)", ar: "أصغر حجم باكت مسموح في المسار عشان تمنع التجزئة (Fragmentation).", en: "The smallest allowed packet size in the path to prevent Fragmentation." },
+      { id: "possibility", title: "Connection (Concave)", ar: "وصلة واحدة تمنع الاتصال (ACL/Auth) = مفيش اتصال للمسار كله.", en: "One link blocking connection (ACL/Auth) = no connection for the entire path." },
     ],
+    pathComputation: {
+      title: { ar: "حساب جودة المسار (Path Quality Computation)", en: "Path Quality Computation" },
+      hopByHop: {
+        title: "1. Hop-by-Hop (الأشهر)",
+        desc: { ar: "كل راوتر بياخد قراره بنفسه. الأمثلة: OSPF, RIP. يتميز بالمرونة والقابلية للتوسع.", en: "Each router makes its own decision. Examples: OSPF, RIP. Characterized by flexibility and scalability." },
+      },
+      sourceRouting: {
+        title: "2. Source Routing",
+        desc: { ar: "المصدر هو اللي بيحدد المسار كامل. نادر الاستخدام، مش scalable، وفيه مشاكل أمان.", en: "The source determines the entire path. Rarely used, not scalable, and has security issues." },
+      },
+    },
+    finalSummary: {
+      title: { ar: "🌸 جدول الخلاصة الذهبية", en: "🌸 Golden Summary Table" },
+      headers: {
+        ar: ["Metric", "Type", "Rule", "Purpose"],
+        en: ["Metric", "Type", "Rule", "Purpose"],
+      },
+      rows: [
+        [{ ar: "Delay", en: "Delay" }, "Additive", "Sum", { ar: "تقليل زمن الوصول", en: "Reduce latency" }],
+        [{ ar: "Jitter", en: "Jitter" }, "Additive", "Diff", { ar: "منع التقطيع", en: "Prevent jitter" }],
+        [{ ar: "Bandwidth", en: "Bandwidth" }, "Concave", "Min", { ar: "سعة المسار", en: "Path capacity" }],
+        [{ ar: "BER", en: "BER" }, "Multiplicative", "Product", { ar: "جودة الإشارة", en: "Signal quality" }],
+        [{ ar: "Security", en: "Security" }, "Concave", "AND", { ar: "أمان المسار", en: "Path security" }],
+      ],
+    },
   },
 
   // Common UI elements
