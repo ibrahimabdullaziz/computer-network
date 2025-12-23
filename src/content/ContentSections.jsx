@@ -3314,11 +3314,6 @@ export function NetworkMetricsDetailedSection({ onVisible }) {
     >
       <p>{tr.intro[lang]}</p>
 
-      <Callout type="important">
-        <h3>{lang === "ar" ? tr.qos.title.ar : tr.qos.title.en}</h3>
-        <p>{lang === "ar" ? tr.qos.desc.ar : tr.qos.desc.en}</p>
-      </Callout>
-
       <hr />
 
       <h2>{lang === "ar" ? "قواعد حساب المقاييس" : "Metric Calculation Rules"}</h2>
@@ -3328,16 +3323,38 @@ export function NetworkMetricsDetailedSection({ onVisible }) {
           <h3>{tr.rules.additive.title}</h3>
           <CodeBlock language="text">{tr.rules.additive.formula}</CodeBlock>
           <p>{tr.rules.additive.desc[lang]}</p>
+          <Callout type="note">{tr.rules.additive.brain[lang]}</Callout>
         </div>
         <div className="card">
           <h3>{tr.rules.multiplicative.title}</h3>
           <CodeBlock language="text">{tr.rules.multiplicative.formula}</CodeBlock>
           <p>{tr.rules.multiplicative.desc[lang]}</p>
+          <Callout type="note">{tr.rules.multiplicative.brain[lang]}</Callout>
         </div>
         <div className="card">
           <h3>{tr.rules.concave.title}</h3>
           <CodeBlock language="text">{tr.rules.concave.formula}</CodeBlock>
           <p>{tr.rules.concave.desc[lang]}</p>
+          <Callout type="note">{tr.rules.concave.brain[lang]}</Callout>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>{lang === "ar" ? "أنواع المقاييس" : "Metric Strategy Types"}</h2>
+      <div className="card-grid">
+        <div className="card highlight">
+          <h3>{tr.metricTypes.single.title}</h3>
+          <p>{tr.metricTypes.single.desc[lang]}</p>
+        </div>
+        <div className="card highlight">
+          <h3>{tr.metricTypes.mixed.title}</h3>
+          <CodeBlock language="text">{tr.metricTypes.mixed.formula}</CodeBlock>
+          <p>{tr.metricTypes.mixed.desc[lang]}</p>
+        </div>
+        <div className="card highlight">
+          <h3>{tr.metricTypes.multiple.title}</h3>
+          <p>{tr.metricTypes.multiple.desc[lang]}</p>
         </div>
       </div>
 
@@ -3345,18 +3362,65 @@ export function NetworkMetricsDetailedSection({ onVisible }) {
 
       <h2>{lang === "ar" ? "شرح المقاييس بالتفصيل" : "Metrics in Detail"}</h2>
 
-      <div className="card-grid">
-        {tr.metricsDetail.map((metric) => (
-          <div key={metric.id} className="card">
-            <h4>{metric.title}</h4>
-            <p>{metric[lang]}</p>
+      {tr.metricsDetail.map((metric) => (
+        <div key={metric.id} className="detail-item">
+          <h3>{metric.title}</h3>
+          
+          {metric.formula && (
+            <CodeBlock language="text">{metric.formula}</CodeBlock>
+          )}
+
+          {metric.types && (
+            <ul>
+              {metric.types[lang].map((type, i) => (
+                <li key={i}>{type}</li>
+              ))}
+            </ul>
+          )}
+
+          {metric[lang] && <p>{metric[lang]}</p>}
+          {metric.desc && <p>{metric.desc[lang]}</p>}
+          
+          {metric.binary && (
+            <Callout type="note">
+              <strong>{lang === "ar" ? "النظام الثنائي:" : "Binary System:"}</strong> {metric.binary[lang]}
+            </Callout>
+          )}
+
+          {metric.relation && (
+            <Callout type="tip">
+              <strong>{lang === "ar" ? "العلاقة:" : "Relation:"}</strong> {metric.relation}
+            </Callout>
+          )}
+
+          <div className="grid-2">
+            {metric.type && (
+              <p><strong>{lang === "ar" ? "نوع الحساب:" : "Calculation Type:"}</strong> <span className="term">{metric.type}</span></p>
+            )}
+            {metric.brain && (
+              <p><em>{metric.brain[lang]}</em></p>
+            )}
           </div>
-        ))}
-      </div>
+
+          {metric.note && (
+            <p className="highlight-text">{metric.note[lang]}</p>
+          )}
+
+          {metric.includes && (
+            <ul>
+              {metric.includes[lang].map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          )}
+          
+          <hr className="sub-hr" />
+        </div>
+      ))}
 
       <hr />
 
-      <h2>{lang === "ar" ? tr.pathComputation.title.ar : tr.pathComputation.title.en}</h2>
+      <h2>{lang === "ar" ? tr.pathComputation.title : tr.pathComputation.title}</h2>
       <div className="grid-2">
         <div className="card">
           <h3>{tr.pathComputation.hopByHop.title}</h3>
@@ -3370,7 +3434,11 @@ export function NetworkMetricsDetailedSection({ onVisible }) {
 
       <hr />
 
-      <h2>{lang === "ar" ? tr.finalSummary.title.ar : tr.finalSummary.title.en}</h2>
+      <Callout type="success">
+        <h2>{lang === "ar" ? tr.finalSummary.title : tr.finalSummary.title}</h2>
+        <p>{lang === "ar" ? tr.finalSummary.note.ar : tr.finalSummary.note.en}</p>
+      </Callout>
+      
       <Table
         headers={tr.finalSummary.headers[lang]}
         rows={tr.finalSummary.rows.map((row) => [
