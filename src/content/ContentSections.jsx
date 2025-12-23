@@ -942,10 +942,18 @@ export function RoutingProblemsSection({ onVisible }) {
     <div className="detail-item">
       <h3>{lang === "ar" ? data.title.ar : data.title.en}</h3>
       <div className="card-grid">
-        <div className="card">
-          <strong>{lang === "ar" ? "السبب:" : "Cause:"}</strong>
-          <p>{lang === "ar" ? data.causes.ar : data.causes.en}</p>
-        </div>
+        {data.causes && (
+          <div className="card">
+            <strong>{lang === "ar" ? "السبب:" : "Cause:"}</strong>
+            <p>{lang === "ar" ? data.causes.ar : data.causes.en}</p>
+          </div>
+        )}
+        {data.meaning && (
+          <div className="card">
+            <strong>{lang === "ar" ? "المعنى:" : "Meaning:"}</strong>
+            <p>{lang === "ar" ? data.meaning.ar : data.meaning.en}</p>
+          </div>
+        )}
         {data.analogy && (
           <div className="card highlight">
             <strong>{lang === "ar" ? "تشبيه:" : "Analogy:"}</strong>
@@ -953,10 +961,12 @@ export function RoutingProblemsSection({ onVisible }) {
           </div>
         )}
       </div>
-      <p>
-        <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
-        {lang === "ar" ? data.impact.ar : data.impact.en}
-      </p>
+      {data.impact && (
+        <p>
+          <strong>{lang === "ar" ? "التأثير:" : "Impact:"}</strong>{" "}
+          {lang === "ar" ? data.impact.ar : data.impact.en}
+        </p>
+      )}
       {data.note && (
         <Callout type="tip">
           {lang === "ar" ? data.note.ar : data.note.en}
